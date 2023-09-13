@@ -1,0 +1,36 @@
+{
+    "test": "test",
+    "main": "main",
+    "realEstate":"real estates",
+    "ourServices":"our services",
+    "news":"news",
+    "articles":"articles",
+    "reminder":"reminder",
+    "policy":"policy",
+
+    "descServices": "most of the services you will need in turkye and we will help you achieve them",
+
+    "typeRealEstate": "real estate types",
+    "descRealEstae":"Choose the type of property you are looking for",
+
+    "all": "all",
+    "residential":"residential",
+    "commercial":"commercial",
+    "lands":"lands",
+    "buildings":"buildings",
+    "villas":"villas",
+    "houses":"houses",
+    "apartments":"apartments",
+
+    "availableServices": "available services",
+
+    "page404": "page not found",
+
+    "about": "about",
+    "nearby": "nearby",
+    "virtual": "virtual",
+    "project": "project",
+
+    "descVirtual": "Sorry , not available now",
+    "feature": "feature"
+}

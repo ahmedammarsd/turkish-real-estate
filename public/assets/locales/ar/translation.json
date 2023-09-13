@@ -1,0 +1,36 @@
+{
+    "test": "تحربة",
+    "main": "الرئيسية",
+    "realEstate":"العقارات",
+    "ourServices":"الخدمات",
+    "news":"الأخبار",
+    "articles":"المقالات",
+    "reminder":"ذكرني",
+    "policy":"سياسة الخصوصية",
+
+    "descServices": "أغلب الخدمات التي ستحتاجها في تركيا وسنساعدك في انجازها",
+
+    "typeRealEstate": "أنواع العقارات",
+    "descRealEstae":"اختر نوع العقار الذي تبحث عنه",
+
+    "all": "الكل",
+    "residential":"سكني",
+    "commercial":"تجاري",
+    "lands":"الأراضي",
+    "buildings":"البنايات",
+    "villas":"الفيلات",
+    "houses":"منازل",
+    "apartments":"شقق سكنية",
+
+    "availableServices": "الخدمات المتاحة",
+
+    "page404" : "لم يتم العثور على الصفحة",
+
+    "about": "عن العقار",
+    "nearby": "المجاور",
+    "virtual": "الافتراضية",
+    "project": "المشروع",
+
+    "descVirtual": "عذرا , غير متاحة الان",
+    "feature": "المميزات"
+}
