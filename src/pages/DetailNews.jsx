@@ -6,7 +6,7 @@ import { dummayDataNews, linksNavbar } from "../Links-navbar/Links";
 import NewsDetails from "../components/NewsDetails";
 import TitleHeader from "../components/shared/TitleHeader";
 import newsImage from "../images/imagecompressor/header4.jpg"
-import RealEstateDetail from "../components/RealEstateDetail/RealEstateDetail";
+
 
 
 const DetailNews = () => {
@@ -14,8 +14,8 @@ const DetailNews = () => {
   const { id } = useParams();
   const {image ,category , title ,desc, date ,youtubeLink} = dummayDataNews[id];
   const langCode = useSelector((state) => state.selectLang.currentLanguageCode);
+  window.scrollTo({top: 100, behavior: "smooth"})
   useEffect(() => {
-    window.scrollTo({top: 100, behavior: "smooth"})
     document.title = t(linksNavbar[3].name);
   }, [langCode]);
   return (
@@ -32,17 +32,7 @@ const DetailNews = () => {
           date={date}
           youtubeLink={youtubeLink}
           />
-          <RealEstateDetail
-           title="test"
-           image={image}
-           town="khartoum"
-           townDirection="east"
-           address="naser"
-           stars={4}
-           typeReal={"villa"}
-           offerType={"rent"}
-           typePayment={"cash"}
-          />
+          
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Navbar from './components/Navbar';
 import { Route, Routes, useLocation, useParams } from 'react-router-dom';
-import Main from './pages/main';
+import Main from './pages/Main';
 import RealEstates from './pages/RealEstates';
 import Services from "./pages/Services"
 import SubServices from "./pages/SubServices"
@@ -35,15 +35,16 @@ function App() {
         <Route path={linksNavbar[0].to} element={<Main />} />
         <Route path={linksNavbar[1].to} element={<RealEstates />} /> 
         <Route path={`${linksNavbar[1].to}/:idReal`} element={<DetailRealEstate />} />
+
         <Route path={linksNavbar[2].to} element={<Services />} />
-          <Route path={`${linksNavbar[2].to}/:id/:nameServices`} element={<SubServices />} />
-            <Route path={`${linksNavbar[2].to}/:id/:nameServices/:idService`} element={<DetailService />} />
+        <Route path={`${linksNavbar[2].to}/:id/:nameServices`} element={<SubServices />} />
+        <Route path={`${linksNavbar[2].to}/:id/:nameServices/:idService`} element={<DetailService />} />
           
         <Route path={linksNavbar[3].to} element={<News />} />
-          <Route path={`${linksNavbar[3].to}/:id`} element={<DetailNews />} />
+        <Route path={`${linksNavbar[3].to}/:id`} element={<DetailNews />} />
         
         <Route path={linksNavbar[4].to} element={<Articles />} />
-         <Route exact path={`${linksNavbar[4].to}/:id`} element={<DetailArticle />} />
+        <Route exact path={`${linksNavbar[4].to}/:id`} element={<DetailArticle />} />
         
         <Route path='*' element={<Page404 />} />
       </Routes>

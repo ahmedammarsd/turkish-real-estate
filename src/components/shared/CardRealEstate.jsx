@@ -43,10 +43,13 @@ const CardRealEstate = ({
   numberAreaForInfoReal,
   numberRoomsForInfoReal,
   numberBathForInfoReal,
+  customFunc
 }) => {
     const langCode = useSelector((state) => state.selectLang.currentLanguageCode);
   return (
-    <div className="tw-overflow-hidden tw-rounded-sm tw-shadow-sm hover:tw-shadow-md tw-duration-500 tw-cursor-pointer">
+    <div className="tw-overflow-hidden tw-rounded-sm tw-shadow-sm hover:tw-shadow-md tw-duration-500 tw-cursor-pointer"
+    onClick={customFunc}
+    >
       <div className="tw-w-full tw-h-[250px] tw-relative">
         <img
           src={imageReal}

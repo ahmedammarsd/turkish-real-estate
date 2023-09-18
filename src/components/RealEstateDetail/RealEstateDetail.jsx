@@ -12,14 +12,12 @@ import { AiFillCheckCircle } from "react-icons/ai";
 import { ImLocation2 } from "react-icons/im";
 import { Tb360View, TbBuildingSkyscraper } from "react-icons/tb";
 
-import { FaBath, FaBed } from "react-icons/fa";
-import { PiArmchairThin } from "react-icons/pi";
-import { BiArea } from "react-icons/bi";
-import { GrSteps } from "react-icons/gr";
-import { MdOutlinePriceChange, MdOutlineHomeWork } from "react-icons/md";
-
 import { CgUnavailable } from "react-icons/cg";
 import { useTranslation } from "react-i18next";
+import { BsHouseAddFill } from "react-icons/bs";
+import { useSelector } from "react-redux";
+import FormRequest from "../FormRequest";
+import { RxCross2 } from "react-icons/rx"
 
 const InfoRealEstate = ({ icon, title }) => {
   return (
@@ -65,6 +63,8 @@ const RealEstateDetail = ({
     virtual: false,
     project: false,
   };
+  const selectLang = useSelector( (state) => state.selectLang);
+  const [controlFormReq , setControlFormReq] = useState(false)
   const [isClicked, setIsClicked] = useState(initialState);
   const handleClicked = (clicked) => {
     setIsClicked({ ...initialState, [clicked]: true });
@@ -83,6 +83,26 @@ const RealEstateDetail = ({
       <div className="tw-w-full tw-h-[500px]">
         <img src={image} className="tw-w-full tw-h-full tw-object-cover" />
       </div>
+       {/*icon form req */}
+       <div className={`tw-fixed tw-bottom-3 tw-z-3 tw-backdrop-blur-[4px] tw-bg-transparent-white2 tw-flex tw-justify-center tw-items-center tw-cursor-pointer ${selectLang.currenLanguageCode === "en" ? "tw-left-3" : "tw-right-3"}`}
+       onClick={() => setControlFormReq(true)}
+       >
+          <span className="tw-text-3xl md:tw-text-2xl sm:tw-text-xl tw-text-main-blue tw-p-2 tw-w-full tw-h-full tw-rounded-md tw-shadow-md hover:tw-bg-main-blue hover:tw-text-white tw-cursor-pointer tw-duration-500">
+            <BsHouseAddFill />
+          </span>
+        </div>
+        {/*icon form req */}
+         {/*form Request */}
+         {
+         <div className={` tw-fixed tw-left-0 tw-w-full tw-h-screen tw-bg-transparent-black4 tw-backdrop-blur-[4px]  tw-z-10 ${controlFormReq ? "tw-top-0" : "tw-top-[-1500px]"} tw-transition-all tw-duration-1000`}>
+         <span className={`tw-absolute tw-top-1 ${selectLang.currenLanguageCode === "en" ? "tw-left-4" : "tw-right-4"} tw-text-red-600 tw-z-10 tw-p-3 tw-shadow-sm hover:tw-text-red-600 tw-cursor-pointer hover:tw-bg-gray-50 tw-rounded-md tw-text-xl tw-transition-all tw-duration-200 tw-ease-in-out`}
+          onClick={() => setControlFormReq(false)}>
+           <RxCross2 />
+         </span>
+         <FormRequest />
+       </div>
+         }
+          {/*form Request */}
       <div className="tw-flex tw-items-start tw-flex-col tw-gap-5 sm:tw-gap-3 tw-p-4 tw-py-5">
         {/*address and stars */}
         <div className="tw-flex tw-flex-col tw-items-start tw-gap-2">

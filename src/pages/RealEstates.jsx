@@ -4,6 +4,7 @@ import TitleHeader from '../components/shared/TitleHeader'
 import imageRealEstate from "../images/imagecompressor/header1.jpg"
 import { linksNavbar } from '../Links-navbar/Links';
 import { useSelector } from 'react-redux';
+import RealEstatess from '../components/RealEstates';
 
 const RealEstates = () => {
   const { t } = useTranslation();
@@ -14,6 +15,7 @@ const RealEstates = () => {
   return (
     <div>
       <TitleHeader title={t(linksNavbar[1].name)} bgImageSrc={imageRealEstate} />
+      <RealEstatess inMain={false} />
     </div>
   )
 }

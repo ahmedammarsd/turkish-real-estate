@@ -8,9 +8,14 @@ import ServicesSection from "../components/ServicesSection";
 import RealEstatesTypes from "../components/RealEstatesTypes";
 import RealEstates from "../components/RealEstates";
 import NewsCom from "../components/NewsCom";
+import newsImage from "../images/imagecompressor/header4.jpg"
+import RealEstateDetail from "../components/RealEstateDetail/RealEstateDetail";
+
+
 
 const Main = () => {
   const { t } = useTranslation();
+  
   const langCode = useSelector((state) => state.selectLang.currentLanguageCode);
   useEffect(() => {
     document.title = t(linksNavbar[0].name);
@@ -21,7 +26,7 @@ const Main = () => {
       <CardLinks />
       <ServicesSection inMain={true}/>
       <RealEstatesTypes />
-      <RealEstates />
+      <RealEstates inMain={true}/>
       <NewsCom inMain={true}/>
     </div>
   );

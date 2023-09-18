@@ -1,7 +1,7 @@
 import React from "react";
 import ServiceSectionCard from "./shared/ServiceSectionCard";
 import { useTranslation } from "react-i18next";
-import imageTest from "../images/img2.jpg";
+import imageTest from "../images/imagecompressor/img2.jpg";
 import TitleAndDesc from "./shared/TitleAndDesc";
 import { dummayDataServices , linksNavbar } from "../Links-navbar/Links";
 import { useNavigate } from "react-router-dom";
