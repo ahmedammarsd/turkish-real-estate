@@ -33,6 +33,7 @@ export default {
       },
       backgroundImage:{
         "header": "url('/src/images/imagecompressor/img16.jpg')",
+        "about": "url('/src/images/imagecompressor/img15.jpg')",
       },
       backgroundColor: {
         "main-blue" : "#0E6A93",

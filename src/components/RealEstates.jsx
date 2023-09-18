@@ -52,7 +52,7 @@ const RealEstates = ({inMain}) => {
               <>
             
             <div className={`tw-w-[40%] lg:tw-w-full md:tw-fixed md:tw-h-screen md:tw-bg-transparent-black4 tw-backdrop-blur-[4px] md:tw-left-0 tw-z-10 ${controlFormFilter ? "lg:tw-block md:tw-scale-100 md:tw-top-0" : "lg:tw-hidden md:tw-scale-0 md:tw-top-[-1000px]"} tw-transition-all tw-duration-1000`}>
-              <span className={`tw-hidden md:tw-block md:tw-absolute tw-top-1 ${selectLang.currenLanguageCode === "en" ? "tw-left-4" : "tw-right-4"} tw-text-red-600 tw-z-10 tw-p-3 tw-shadow-sm hover:tw-text-red-600 tw-cursor-pointer hover:tw-bg-gray-50 tw-rounded-md tw-text-xl tw-transition-all tw-duration-200 tw-ease-in-out`}
+              <span className={`tw-hidden md:tw-block md:tw-absolute tw-top-1 ${selectLang.currentLanguageCode === "en" ? "tw-right-4" : "tw-left-4"} tw-text-red-600 tw-z-10 tw-p-3 tw-shadow-sm hover:tw-text-red-600 tw-cursor-pointer hover:tw-bg-gray-50 tw-rounded-md tw-text-xl tw-transition-all tw-duration-200 tw-ease-in-out`}
                onClick={() => setControlFormFilter(false)}>
                 <RxCross2 />
               </span>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const Lable = ({ labelInput }) => (
   <label className=" tw-text-main-blue md:tw-text-white md:tw-font-bold tw-tracking-tight tw-text-[15px] sm:tw-text-sm tw-capitalize">
@@ -7,6 +8,7 @@ const Lable = ({ labelInput }) => (
 );
 
 const FormFilterRealEstate = () => {
+  const { t } = useTranslation();
   const styleSelect =
     "tw-w-full tw-h-10 shadow-md md:tw-backdrop-blur-sm md:tw-bg-transparent-white6 tw-ring-1 tw-ring-gray-50 md:tw-ring-0 tw-backdrop-blur-md tw-bg-white tw-rounded-sm tw-border-b-[.7px] md:tw-border-b-[2px] tw-border-main-blue md:tw-border-gray-100 focus:tw-border-none tw-px-3 tw-text-gray-500 md:placeholder:tw-text-gray-100 md:tw-text-gray-700 focus:tw-ring-2 focus:tw-ring-inset focus:tw-ring-main-blue sm:tw-text-sm";
   //const styleInput = "tw-block tw-w-full tw-rounded-md tw-border-0 tw-px-3.5 tw-py-2 tw-text-gray-900 tw-shadow-sm tw-ring-1 tw-ring-inset tw-ring-gray-300 placeholder:tw-text-gray-400 focus:tw-ring-2 focus:tw-ring-inset focus:tw-ring-indigo-600 sm:tw-text-sm sm:tw-leading-6"
@@ -74,7 +76,7 @@ const checkSpace = (min , max) => {
 
             <div className="tw-flex tw-flex-col tw-items-start tw-gap-5 md:tw-gap-4">
               <div className="tw-w-full tw-flex tw-flex-col tw-items-start tw-gap-2">
-                <Lable labelInput={"Town"} />
+                <Lable labelInput={t("twon")} />
                 <select className={styleSelect}>
                   <option>town 1</option>
                   <option>town 1</option>
@@ -82,7 +84,7 @@ const checkSpace = (min , max) => {
                 </select>
               </div>
               <div className="tw-w-full tw-flex tw-flex-col tw-items-start tw-gap-2">
-                <Lable labelInput={"compound"} />
+                <Lable labelInput={t("compound")} />
                 <select className={styleSelect}>
                   <option>town 1</option>
                   <option>town 1</option>
@@ -90,7 +92,7 @@ const checkSpace = (min , max) => {
                 </select>
               </div>
               <div className="tw-w-full tw-flex tw-flex-col tw-items-start tw-gap-2">
-                <Lable labelInput={"type real-estate"} />
+                <Lable labelInput={t("typeReal")} />
                 <select className={styleSelect}>
                   <option>type real 1</option>
                   <option>type real 1</option>
@@ -98,7 +100,7 @@ const checkSpace = (min , max) => {
                 </select>
               </div>
               <div className="tw-w-full tw-flex tw-flex-col tw-items-start tw-gap-2">
-                <Lable labelInput={"feature"} />
+                <Lable labelInput={t("features")} />
                 <select className={styleSelect}>
                   <option>feature 1</option>
                   <option>feature 1</option>
@@ -106,7 +108,7 @@ const checkSpace = (min , max) => {
                 </select>
               </div>
               <div className="tw-w-full tw-flex tw-flex-col tw-items-start tw-gap-2">
-                <Lable labelInput={"type design"} />
+                <Lable labelInput={t("typeDesign")} />
                 <select className={styleSelect}>
                   <option>type 1</option>
                   <option>type 1</option>
@@ -115,14 +117,14 @@ const checkSpace = (min , max) => {
               </div>
 
               <div className="tw-w-full tw-flex tw-flex-col tw-items-start tw-gap-2">
-                <Lable labelInput={"price"} />
+                <Lable labelInput={t("price")} />
                 <div className=" tw-w-full tw-grid tw-grid-cols-2 tw-items-center tw-gap-3">
                   <div>
                     <input
                       type="number"
                       max={5000}
                       min={0}
-                      placeholder="Min"
+                      placeholder={t("min")}
                       name="fromPrice"
                       className={`${styleSelect} ${!minPriceValid || !equalMinAndMax  ? "tw-border tw-border-red-500" : null}`}
                       onChange={(e) => {
@@ -138,7 +140,7 @@ const checkSpace = (min , max) => {
                       type="number"
                       max={4000}
                       min={0}
-                      placeholder="Max"
+                      placeholder={t("max")}
                       name="ToPrice"
                       className={`${styleSelect} ${!maxPriceValid || !equalMinAndMax ? "tw-border tw-border-red-500" : null}`}
                       onChange={(e) => {
@@ -153,14 +155,14 @@ const checkSpace = (min , max) => {
               </div>
 
               <div className="tw-w-full tw-flex tw-flex-col tw-items-start tw-gap-2">
-                <Lable labelInput={"space"} />
+                <Lable labelInput={t("space")} />
                 <div className=" tw-w-full tw-grid tw-grid-cols-2 tw-items-center tw-gap-3">
                   <div>
                     <input
                       type="number"
                       max="5000"
                       min="0"
-                      placeholder="Min"
+                      placeholder={t("min")}
                       name="fromPrice"
                       className={`${styleSelect} ${!minSpaceValid || !equalMinAndMaxSpace  ? "tw-border tw-border-red-500" : null}`}
                       onChange={(e) => {
@@ -176,7 +178,7 @@ const checkSpace = (min , max) => {
                       type="number"
                       max="5000"
                       min="0"
-                      placeholder="Max"
+                      placeholder={t("max")}
                       name="ToPrice"
                       className={`${styleSelect} ${!maxSpaceValid || !equalMinAndMaxSpace  ? "tw-border tw-border-red-500" : null}`}
                       onChange={(e) => {
@@ -192,7 +194,7 @@ const checkSpace = (min , max) => {
 
               <div className="tw-w-full tw-mt-5">
                 <button className=" tw-w-full tw-text-white tw-bg-main-blue tw-py-3 tw-rounded-sm hover:tw-bg-blue-700 tw-capitalize">
-                  search
+                  {t("search")}
                 </button>
               </div>
             </div>

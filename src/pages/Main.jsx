@@ -10,6 +10,7 @@ import RealEstates from "../components/RealEstates";
 import NewsCom from "../components/NewsCom";
 import newsImage from "../images/imagecompressor/header4.jpg"
 import RealEstateDetail from "../components/RealEstateDetail/RealEstateDetail";
+import About from "../components/About";
 
 
 
@@ -28,6 +29,7 @@ const Main = () => {
       <RealEstatesTypes />
       <RealEstates inMain={true}/>
       <NewsCom inMain={true}/>
+      <About />
     </div>
   );
 };

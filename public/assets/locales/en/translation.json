@@ -8,6 +8,9 @@
     "reminder":"reminder",
     "policy":"policy",
 
+    "headerOne": "Best Select for real estate and General services in Turkey",
+    "descHeader": "Find your dream house with best select and will help you to compleate services that available in us and more... all that available in turkey",
+
     "descServices": "most of the services you will need in turkye and we will help you achieve them",
 
     "typeRealEstate": "real estate types",
@@ -32,5 +35,25 @@
     "project": "project",
 
     "descVirtual": "Sorry , not available now",
-    "feature": "feature"
+    "feature": "features",
+
+    "twon":"town",
+    "compound":"compound",
+    "typeReal":"type real-estate",
+    "features":"features",
+    "typeDesign":"type design",
+    "price":"price",
+    "space":"space",
+    "min":"min",
+    "max":"max",
+    "search":"search",
+
+    "nameMsgErrOne": "The Field Is required",
+    "nameMsgErrTwo": "The name not valid",
+    "emailMsgErrTwo": "the email not valid",
+    "phoneMsgErrTwo": "the phone number not valid",
+    "send": "send",
+
+
+    "bestSelectAbout": "Best Select Real Estate is a large-scale Arab company, specialized in marketing and real estate development in Turkey. It was established in 2014 in Istanbul, and it has a large team of specialists in the Turkish real estate market, and it has many agreements and dealings with most of the major construction companies in Istanbul"
 }
