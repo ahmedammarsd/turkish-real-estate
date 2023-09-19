@@ -27,7 +27,7 @@ export const linksNavbar = [
     {
         icon: <HiOutlineNewspaper />,
         name:"news",
-        to:"/news",
+        to:"/news-and-articles",
     },
     {
         icon: <BsReverseLayoutTextSidebarReverse />,

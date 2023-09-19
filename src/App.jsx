@@ -43,8 +43,8 @@ function App() {
         <Route path={linksNavbar[3].to} element={<News />} />
         <Route path={`${linksNavbar[3].to}/:id`} element={<DetailNews />} />
         
-        <Route path={linksNavbar[4].to} element={<Articles />} />
-        <Route exact path={`${linksNavbar[4].to}/:id`} element={<DetailArticle />} />
+        {/* <Route path={linksNavbar[4].to} element={<Articles />} />
+        <Route exact path={`${linksNavbar[4].to}/:id`} element={<DetailArticle />} /> */}
         
         <Route path='*' element={<Page404 />} />
       </Routes>

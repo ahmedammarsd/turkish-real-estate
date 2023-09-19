@@ -6,7 +6,6 @@ import testImage from "../images/imagecompressor/img5.jpg"
 import { useNavigate } from "react-router-dom";
 import { linksNavbar } from "../Links-navbar/Links";
 import FormFilterRealEstate from "./FormFilterRealEstate";
-import { BsFilter } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { RxCross2 } from "react-icons/rx";
 import { VscSettings } from "react-icons/vsc"

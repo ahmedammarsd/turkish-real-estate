@@ -1,14 +1,15 @@
 import React from "react";
 import { BsClockHistory } from "react-icons/bs";
 
+
 const CardNews = ({ type, image, category, title, date , customNav }) => {
   return (
     <div
     onClick={customNav}
     >
       <div className="tw-overflow-hidden tw-rounded-sm tw-shadow-sm hover:tw-shadow-md tw-duration-500 tw-cursor-pointer">
-        <div className="tw-w-full tw-h-[140px]">
-          <img src={image && image} className=" tw-w-full tw-h-full tw-object-cover" />
+        <div className="tw-w-full tw-h-[145px]">
+          <img src={image} className=" tw-w-full tw-h-full tw-object-cover" />
         </div>
         <div className="tw-flex tw-items-start tw-flex-col tw-gap-5 sm:tw-gap-3 tw-p-2 tw-py-4">
           <div>
