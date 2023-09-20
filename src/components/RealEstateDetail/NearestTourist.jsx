@@ -1,7 +1,7 @@
 import React from "react";
 import { ImLocation2 } from "react-icons/im";
 
-const NearestTourist = ({ image, title, distance, locationIcon }) => {
+const NearestTourist = ({ image, title, distance }) => {
   return (
     <div
       className="tw-flex tw-flex-col tw-justify-end tw-items-start tw-gap-3 tw-relative

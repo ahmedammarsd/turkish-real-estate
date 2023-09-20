@@ -33,6 +33,9 @@
     "noServices": "Sorry, no services yet",
 
     "notSpecify" : "not specify",
+
+    "description":"description",
+    "moreDetail": "more about compound",
     "about": "about",
     "nearby": "nearby",
     "virtual": "virtual",

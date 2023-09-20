@@ -55,7 +55,15 @@ const RealEstateDetail = ({
   typeReal,
   offerType,
   typePayment,
-  desc
+  desc,
+  features,
+  nearTourist,
+  descCompaond,
+  moreInfoCompound,
+  linkYoutbe,
+  realEstateContent,
+  latitude,
+  longitude
 }) => {
   const initialState = {
     about: false,
@@ -176,10 +184,12 @@ const RealEstateDetail = ({
           <div className="tw-w-full tw-relative tw-overflow-hidden tw-min-h-[500px] tw-mt-3">
             {isClicked.about && <About 
             desc={desc}
+            features={features || ""}
+            realEstateContent={realEstateContent || ""}
             />}
-            {isClicked.nearby && <Nearby />}
+            {isClicked.nearby && <Nearby nearTourist={nearTourist || ""} latitude={latitude || 0} longitude={longitude || 0}/>}
             {isClicked.virtual && <Virtual />}
-            {isClicked.project && <Project />}
+            {isClicked.project && <Project descCompaond={descCompaond} moreInfo={moreInfoCompound} youtubeLink={linkYoutbe}/>}
           </div>
         </div>
         {/*End Main Control Info Real Estate */}

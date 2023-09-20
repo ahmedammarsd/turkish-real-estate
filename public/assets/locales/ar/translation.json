@@ -35,6 +35,8 @@
 
     "notSpecify" : "لم تحدد",
 
+    "description": "وصف المجمع",
+    "moreDetail" : "المزيد عن المجمع",
     "about": "عن العقار",
     "nearby": "المجاور",
     "virtual": "الافتراضية",

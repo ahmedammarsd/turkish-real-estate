@@ -4,6 +4,7 @@ import { PiArmchairFill } from "react-icons/pi";
 import { BiArea } from "react-icons/bi";
 import { PiStepsFill } from "react-icons/pi";
 import { MdOutlinePriceChange, MdOutlineHomeWork } from "react-icons/md";
+import { useTranslation } from 'react-i18next';
 
 const Heading = ({icon , head}) => {
     return (
@@ -28,7 +29,8 @@ const Detail = ({detail}) => {
     </div>
     )
 }
-const RealEstateContent = () => {
+const RealEstateContent = ({content}) => {
+    const { t } = useTranslation();
   return (
     <div className="tw-w-full tw-mt-5 tw-p-1 tw-overflow-y-auto realContent">
         {/* HEADING */}
@@ -43,17 +45,31 @@ const RealEstateContent = () => {
         </div>
         {/* HEADING */}
          {/*Real Content */}
-         <div className="tw-grid tw-items-center tw-grid-cols-7 tw-w-full md:tw-w-[740px] xs:tw-w-[490px] tw-border-b tw-border-main-blue">
-            <Detail  detail={"3"}/>
-            <Detail  detail={"2"}/>
-            <Detail  detail={"2"}/>
-            <Detail  detail={"200"}/>
-            <Detail  detail={"Delax"}/>
-            <Detail  detail={"3"}/>
-            <Detail  detail={"400"}/>
+         {
+            content?.length === 0 || content === "" ?
+            <div className="tw-grid tw-justify-center tw-items-center tw-grid-cols-1 tw-w-full md:tw-w-[740px] xs:tw-w-[490px] tw-border-b tw-border-main-blue">
+                {t("notSpecify")}
+            </div>    
+            :
+            <div className="tw-w-full">
+           {
+             content?.filter((con) => con.is_available === true)?.map((contentO , index) => (
+                <div key={index} className="tw-grid tw-items-center tw-grid-cols-7 tw-w-full md:tw-w-[740px] xs:tw-w-[490px] tw-border-b tw-border-main-blue">
+                 <Detail  detail={contentO?.rooms_count}/>
+                 <Detail  detail={contentO?.halls_count}/>
+                 <Detail  detail={contentO?.bathrooms_count}/>
+                 <Detail  detail={contentO?.space}/>
+                 <Detail  detail={contentO?.type}/>
+                 <Detail  detail={contentO?.floor_no}/>
+                 <Detail  detail={contentO?.price}/>
+                </div>
+             ))
+           }
+            </div>
+         }
+           {/*Real Content */}       
         </div>
-            {/*Real Content */}
-    </div>
+    
   )
 }
 

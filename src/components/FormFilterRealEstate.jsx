@@ -10,7 +10,7 @@ const Lable = ({ labelInput }) => (
 const FormFilterRealEstate = () => {
   const { t } = useTranslation();
   const styleSelect =
-    "tw-w-full tw-h-10 shadow-md md:tw-backdrop-blur-sm md:tw-bg-transparent-white6 tw-ring-1 tw-ring-gray-50 md:tw-ring-0 tw-backdrop-blur-md tw-bg-white tw-rounded-sm tw-border-b-[.7px] md:tw-border-b-[2px] tw-border-main-blue md:tw-border-gray-100 focus:tw-border-none tw-px-3 tw-text-gray-500 md:placeholder:tw-text-gray-100 md:tw-text-gray-700 focus:tw-ring-2 focus:tw-ring-inset focus:tw-ring-main-blue sm:tw-text-sm";
+    "tw-w-full tw-h-9 xs:tw-h-7 shadow-md md:tw-backdrop-blur-sm md:tw-bg-transparent-white6 tw-ring-1 tw-ring-gray-50 md:tw-ring-0 tw-backdrop-blur-md tw-bg-white tw-rounded-sm tw-border-b-[.7px] md:tw-border-b-[2px] tw-border-main-blue md:tw-border-gray-100 focus:tw-border-none tw-px-3 tw-text-gray-500 md:placeholder:tw-text-gray-100 md:tw-text-gray-700 focus:tw-ring-2 focus:tw-ring-inset focus:tw-ring-main-blue sm:tw-text-sm";
   //const styleInput = "tw-block tw-w-full tw-rounded-md tw-border-0 tw-px-3.5 tw-py-2 tw-text-gray-900 tw-shadow-sm tw-ring-1 tw-ring-inset tw-ring-gray-300 placeholder:tw-text-gray-400 focus:tw-ring-2 focus:tw-ring-inset focus:tw-ring-indigo-600 sm:tw-text-sm sm:tw-leading-6"
 
   // PRICE STATE AND VALIDATION
@@ -65,6 +65,9 @@ const checkSpace = (min , max) => {
     setEqualMinAndMaxSpace(true)
   }
 }
+ const handleSubmit = (e) => {
+  e.preventDefault()
+ }
 // END PRICE STATE AND VALIDATION
   useEffect(() => {
     
@@ -72,7 +75,7 @@ const checkSpace = (min , max) => {
   return (
     <div>
         <div className=" md:tw-mt-5">
-          <form className="tw-w-full tw-p-4 tw-border lg:tw-border-none">
+          <form className="tw-w-full tw-p-4 tw-border lg:tw-border-none" onSubmit={handleSubmit}>
 
             <div className="tw-flex tw-flex-col tw-items-start tw-gap-5 md:tw-gap-4">
               <div className="tw-w-full tw-flex tw-flex-col tw-items-start tw-gap-2">

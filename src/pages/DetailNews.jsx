@@ -50,7 +50,7 @@ const DetailNews = () => {
             dataNews.loading ?
             <Loading />
             :
-            dataNews.status == "Fialed" 
+            dataNews.status === "fialed" 
             ? <ErrorMsg msg={dataNews.error || t("errorInGet")} />
             :
             newsOrArticle?.length === 1
