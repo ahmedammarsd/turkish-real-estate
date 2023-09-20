@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import bgImage from "../images/imagecompressor/img1.jpg"
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Page404 = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
  
+  const langCode = useSelector((state) => state.selectLang.currentLanguageCode);
+  useEffect(() => {
+    document.title = "PAGE NOT FOUND | 404";
+  }, [langCode]);
   return (
     <div 
     style={{

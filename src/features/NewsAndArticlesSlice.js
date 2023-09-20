@@ -1,6 +1,7 @@
 import { createSlice , createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BaseUrl } from "../utils/BaseUrl";
+import { useTranslation } from "react-i18next";
 
 const initialState = {
     dataNewsAndArticles:[],
@@ -14,35 +15,41 @@ const initialState = {
 }
 
 // READ ACTION
-export const getNewsAndArticles = createAsyncThunk("getNewsAndArticles" , (_ , {rejectWithValue}) => {
+export const getNewsAndArticles = createAsyncThunk("getNewsAndArticles" , ({}, thunkAPI) => {
+    const { t } = useTranslation();
+    console.log("from arti One")
    return axios.get(`${BaseUrl}articles`)
     .then( (res) => {
        //console.log("from redux",res.data , res.status)
         return res.data
     })
     .catch( (error) => {
+        console.log("from articles",error)
         if (error.status === 500){
-            return rejectWithValue(error.error)
+            return thunkAPI.rejectWithValue(error.error)
         }
         else {
-            const msgErr = "Sorry , Error in get Data"
-            return  rejectWithValue(msgErr)
+            const msgErr = t("errorInGet")
+            return  thunkAPI.rejectWithValue(msgErr)
         }
     })
 })
 // END READ ACTION
 
 // READ CATEGORIES
-export const getCategories = createAsyncThunk("getCategories" , (_,{rejectWithValue}) => {
+export const getCategories = createAsyncThunk("getCategories" , ({},thunkAPI) => {
+    const { t } = useTranslation();
     return axios.get(`${BaseUrl}categories`)
     .then( (res) => res.data)
     .catch( (error) => {
+        console.log(error)
         if (error.status === 500){
-            return rejectWithValue(error.error)
+            return thunkAPI.rejectWithValue(error.error)
         }
         else {
-            const msgErr = "Sorry , Error in get Data Categories"
-            return  rejectWithValue(msgErr)
+            console.log(error)
+            const msgErr = t("errorInGet2")
+            return  thunkAPI.rejectWithValue(msgErr)
         }
     })
 })
@@ -78,7 +85,7 @@ const newsAndArticles = createSlice({
             state.loadingCategories = false;
             state.statusCategories = "failed";
             state.errorCategories = action.payload;
-          //  console.log("from slice categor" , action)
+           console.log("from slice categor" , action)
         })
     }
 });

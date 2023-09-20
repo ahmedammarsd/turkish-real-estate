@@ -11,6 +11,7 @@ import { initReactI18next } from 'react-i18next'
 import LanguageDetector from "i18next-browser-languagedetector"
 import HttpApi from "i18next-http-backend";
 import { BrowserRouter } from "react-router-dom"
+import Loading from './components/shared/Loading.jsx';
 
 i18next
 .use(initReactI18next)
@@ -30,7 +31,7 @@ i18next
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <Suspense fallback={"LOODING..."}>
+  <Suspense fallback={<Loading />}>
   {/* <React.StrictMode> */}
     <Provider store={store}>
       <BrowserRouter>

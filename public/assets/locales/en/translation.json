@@ -28,7 +28,11 @@
     "availableServices": "available services",
 
     "page404": "page not found",
+    "errorInGet": "Sorry, error in getting data",
+    "errorInGet2": "Sorry , Error in getting Data Categories",
+    "noServices": "Sorry, no services yet",
 
+    "notSpecify" : "not specify",
     "about": "about",
     "nearby": "nearby",
     "virtual": "virtual",

@@ -21,8 +21,8 @@ function App() {
   const { t } = useTranslation()
   const selectLang = useSelector((state) => state.selectLang)
   useEffect( () => {
-    // addEventListener("online" , () => console.log("online"))
-    // addEventListener("offline" , () => console.log("offline"))
+    //addEventListener("online" , () => console.log("online"))
+    //addEventListener("offline" , () => console.log("offline"))
     document.body.dir = selectLang.currentLanguage.dir;
    // document.title = t("web_title");
   },[selectLang.currentLanguageCode]);

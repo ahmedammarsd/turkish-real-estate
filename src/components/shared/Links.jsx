@@ -1,7 +1,9 @@
 import React, { useMemo, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { BiChevronDown } from "react-icons/bi";
 import { useSelector } from "react-redux";
+import ErrorMsg from "./ErrorMsg";
+import Loading from "./Loading";
 
 const Links = ({
   to,
@@ -12,9 +14,8 @@ const Links = ({
   supLinksData,
 }) => {
     const [ showSubLink , setShowSubLink] = useState(false);
-
+    const navigate = useNavigate();
     const selectLang = useSelector( (state) => state.selectLang);
-
     let screenSizes = useSelector( (state) => state.screenReducer);
 
     const { screenWidth } = screenSizes;
@@ -65,19 +66,29 @@ const Links = ({
         className={`tw-absolute tw-z-5 tw-top-10 lg:tw-static tw-py-3 lg:tw-py-2
         ${selectLang.currentLanguageCode === "en" ? "tw-left-0" : "tw-right-0"}`}
         >
-        <div className={`tw-flex tw-flex-col tw-overflow-hidden tw-w-[350px] lg:tw-w-full tw-p-3
+        <div className={`tw-flex tw-flex-col tw-overflow-hidden tw-w-[350px] tw-min-h-[50px] tw-max-h-[400px] tw-overflow-y-auto lg:tw-w-full tw-p-3
          tw-backdrop-blur-sm lg:tw-bg-white tw-rounded-sm lg:-tw-mt-1 lg:tw-border-t lg:tw-border-gray-300
          ${ screenY > 90 ?
-        "tw-bg-transparent-white9 tw-border-t tw-border-gray-300"
+          "tw-bg-transparent-white9 tw-border-t tw-border-gray-300"
         : "tw-bg-transparent-white2"
         }
          `}
         
         >
-          {supLinksData?.map(({ nameSub, toSub }, index) => (
-            <Link
+          {
+            supLinksData == "loading" 
+            ? <Loading />
+            :
+            supLinksData == "failed"
+            ? <ErrorMsg msg={t("noServices")}/>
+            :
+          supLinksData == "noServices"
+          ? <ErrorMsg msg={t("noServices")}/>
+          :
+          supLinksData?.map((services, index) => (
+            <span
             key={index}
-            to={toSub}
+            onClick={() => navigate(services.id + "/" + services.en_title)}
             className={`tw-capitalize hover:tw-bg-transparent-white4 lg:tw-text-main-blue lg:hover:tw-text-white
              lg:hover:tw-bg-main-blue tw-border-b tw-p-1.5 tw-py-2 tw-cursor-pointer tw-mt-2 tw-text-[16px] tw-font-semibold lg:tw-font-normal
               xs:tw-font-thin tw-shadow-sm hover:tw-shadow-md lg:tw-shadow tw-whitespace-nowrap tw-rounded-sm lg:tw-w-full
@@ -88,8 +99,12 @@ const Links = ({
               }
               `}
             >
-                {nameSub}
-            </Link>
+                {
+                  selectLang.currentLanguageCode === "en"
+                  ? services.en_title
+                  : services.ar_title
+                }
+            </span>
           ))}
         </div>
         </div>

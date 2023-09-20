@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TitleAndDesc from "./shared/TitleAndDesc";
 import { useTranslation } from "react-i18next";
 import CardRealEstate from "./shared/CardRealEstate";
@@ -6,18 +6,51 @@ import testImage from "../images/imagecompressor/img5.jpg"
 import { useNavigate } from "react-router-dom";
 import { linksNavbar } from "../Links-navbar/Links";
 import FormFilterRealEstate from "./FormFilterRealEstate";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RxCross2 } from "react-icons/rx";
 import { VscSettings } from "react-icons/vsc"
+import { getRealEstates } from "../features/RealEstateSlice";
+import Loading from "./shared/Loading";
+import ErrorMsg from "./shared/ErrorMsg";
+import NoData from "./shared/NoData";
+import imageNotFound from "../images/imagecompressor/Image_not_available.png";
+import { BaseUrl } from "../utils/BaseUrl";
+import Pagination from "./Pagination";
+import axios from "axios";
 
 const RealEstates = ({inMain}) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const selectLang = useSelector( (state) => state.selectLang);
-
+    const realEstates = useSelector((state) => state.realEstates);
     const [controlFormFilter , setControlFormFilter] = useState(false);
 
-    let customId = 1
+    useEffect(() => {
+      if (realEstates.realEstates?.length === 0){
+      dispatch(getRealEstates())
+      }
+      axios.get(`${BaseUrl}real_estate`)
+      .then( (res) => console.log(res.data))
+      .catch( (err) => console.log(err))
+    },[])
+
+    const realEstatesFilter = realEstates.realEstates[0]?.filter( (realEstate) => realEstate.is_archive === false && realEstate.is_available === true)
+    const realEstateTwoChangeByFormFilter = realEstatesFilter?.filter( (real) => {})
+    
+    //====== PAGINATION ======
+    const [currentPage, setCurrentPage] = useState(1);
+    const [reaEstateInPage] = useState(6);
+    // GET CURRENT NEWS
+    const indexOfLastPage = currentPage * reaEstateInPage;
+    const indexOfFirstNews = indexOfLastPage - reaEstateInPage;
+    const currentRealEstat = realEstateTwoChangeByFormFilter?.slice(
+      indexOfFirstNews,
+      indexOfLastPage
+    );
+    // CHANGE PAGE
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  //====== END PAGINATION =====
   return (
     <div className="tw-py-2 tw-relative tw-flex tw-justify-center tw-items-center">
       <div className="tw-w-full">
@@ -32,6 +65,8 @@ const RealEstates = ({inMain}) => {
             : null
           }
 
+          {/*========================================== */}
+          {/* HANDLE TO SHOW THE BUTTON THE HIDE AND VIEW THE FORM FILTER IN REAL ESTATE PAGE NOT IN MAIN */}
           {
             !inMain 
             ?
@@ -42,9 +77,12 @@ const RealEstates = ({inMain}) => {
               <VscSettings />
             </span>
             </div>
-            : null
+            : null // NOTHING TO SHOW IN MAIN
           }
+          {/*========================================== */}
           <div className="tw-w-full tw-flex tw-flex-row lg:tw-flex-col tw-items-start tw-gap-4">
+           {/*========================================== */}
+           {/* FORM FILTER IN REAL ESTAE IN PAGE IN MANY CASES ITS HANDLE DEBENDS THE SCREEN SIZE */}
             {
               !inMain 
               ?
@@ -55,26 +93,93 @@ const RealEstates = ({inMain}) => {
                onClick={() => setControlFormFilter(false)}>
                 <RxCross2 />
               </span>
-              <FormFilterRealEstate />
+              <FormFilterRealEstate /> {/* FORM FILTER */}
             </div>
             </>
-            : null
+            : null // NOTHING TO SHOW IN MAIN
             }
-            <div className="tw-grid tw-w-full tw-grid-cols-2 lg:tw-grid-cols-2 sm:tw-grid-cols-1 tw-items-center tw-gap-1">
-                <CardRealEstate 
-                imageReal={testImage} 
-                porpose={"for rent"}
-                typeProperty={"apartment"}
-                price={"100,000"}
-                tilte={"golden urban house"}
-                addressOne={"60 street"}
-                addressTwo={"al-manshia"}
-                numberAreaForInfoReal={"250"}
-                numberRoomsForInfoReal={"3"}
-                numberBathForInfoReal={"2"}
-                customFunc={() => navigate(`${inMain ? linksNavbar[1].to+"/"+customId : customId}`) }
-                />
+            {/*========================================== */}
+
+            {/*========================================== */}
+            <div className="tw-w-full">
+              {
+                // =========== START HANDLE REAL ESTATES ================
+                realEstates.loading ?
+                <Loading />
+                : realEstates.status === "failed" ?
+                <ErrorMsg msg={realEstates.error || t("errorInGet")}/>
+                : inMain ?
+                // ==== IN MAIN PAGE =======  CAN NOT USE FORM FILTER  
+                realEstatesFilter?.length === 0 ?
+                <NoData />
+                :
+                <div className="tw-grid tw-w-full tw-grid-cols-3 lg:tw-grid-cols-2 sm:tw-grid-cols-1 tw-items-center tw-gap-2 sm:tw-gap-3">
+               {
+                realEstatesFilter
+                ?.slice(0,6)
+                ?.map( ({ id ,image_url ,offer_type , type , real_estate_contents , residential_compound , ar_title , en_title , stars} , index) => (
+                  <CardRealEstate 
+                  imageReal={image_url !== "" ? BaseUrl+"file/"+image_url : imageNotFound} 
+                  porpose={offer_type || t("notSpecify")}
+                  typeProperty={type || t("notSpecify")}
+                  price={real_estate_contents[0]?.price || t("notSpecify") }
+                  tilte={selectLang.currentLanguageCode === "en" ? en_title || t("notSpecify") : ar_title || t("notSpecify")}
+                  addressOne={residential_compound.state.city || t("notSpecify")}
+                  addressTwo={selectLang.currentLanguageCode === "en" ? residential_compound.en_address || t("notSpecify") : residential_compound.ar_address || t("notSpecify")} 
+                  numberAreaForInfoReal={real_estate_contents[0]?.space || t("notSpecify") }
+                  numberRoomsForInfoReal={real_estate_contents[0]?.rooms_count || t("notSpecify") }
+                  numberBathForInfoReal={real_estate_contents[0]?.bathrooms_count || t("notSpecify") }
+                  customFunc={() => navigate(`${linksNavbar[1].to+"/"+id}`) }
+                  />
+                ))
+               }
             </div>
+            :
+            // ==== IN REAL ESTATE PAGE ======= CAN USE FORM FILTER HERE AND DATA CHANGE
+            realEstateTwoChangeByFormFilter?.length === 0 ?
+            <NoData />
+            :
+            <div className="tw-grid tw-w-full tw-grid-cols-2 lg:tw-grid-cols-2 sm:tw-grid-cols-1 tw-items-center tw-gap-2 sm:tw-gap-3">
+           {
+            currentRealEstat
+            ?.map( ({ id ,image_url ,offer_type , type , real_estate_contents , residential_compound , ar_title , en_title , stars} , index) => (
+              <CardRealEstate 
+              imageReal={image_url !== "" ? BaseUrl+"file/"+image_url : imageNotFound} 
+              porpose={offer_type || t("notSpecify")}
+              typeProperty={type || t("notSpecify")}
+              price={real_estate_contents[0]?.price || t("notSpecify") }
+              tilte={selectLang.currentLanguageCode === "en" ? en_title || t("notSpecify") : ar_title || t("notSpecify")}
+              addressOne={residential_compound.state.city || t("notSpecify")}
+              addressTwo={selectLang.currentLanguageCode === "en" ? residential_compound.en_address || t("notSpecify") : residential_compound.ar_address || t("notSpecify")} 
+              numberAreaForInfoReal={real_estate_contents[0]?.space || t("notSpecify") }
+              numberRoomsForInfoReal={real_estate_contents[0]?.rooms_count || t("notSpecify") }
+              numberBathForInfoReal={real_estate_contents[0]?.bathrooms_count || t("notSpecify") }
+              customFunc={() => navigate(`${id}`) }
+              />
+            ))
+           }
+        </div>
+                // =========== END HANDLE REAL ESTATES ================
+              }
+            </div>
+            {/*========================================== */}
+
+             {/*========================================== */}
+             {
+              !inMain ?
+              realEstates.status !== "failed" ?
+              <div className=" tw-w-full tw-flex tw-justify-center tw-items-center tw-mt-7">
+                <Pagination 
+                InPage={InPage}
+                total={reaEstateInPage}
+                paginate={paginate}
+                />
+              </div>
+              : null // IF FAILED NOTHING TO SHOW
+              : null // IF NOT IN MAIN HIDE PAGINATION
+             }
+              {/*========================================== */}
+           
         </div>
       </div>
       </div>

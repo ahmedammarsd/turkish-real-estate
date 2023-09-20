@@ -17,6 +17,8 @@ import { useState } from "react";
 import Pagination from "./Pagination";
 import { VscSettings } from "react-icons/vsc";
 import { calcDays } from "../utils/BaseUrl";
+import Loading from "./shared/Loading";
+import NoData from "./shared/NoData";
 
 const NewsCom = ({ inMain }) => {
   const { t } = useTranslation();
@@ -26,7 +28,9 @@ const NewsCom = ({ inMain }) => {
   const selectLang = useSelector((state) => state.selectLang);
   useEffect(() => {
     //
+    if (dataNews.dataNewsAndArticles?.length === 0){
     dispatch(getNewsAndArticles());
+    }
     if (!inMain) {
       dispatch(getCategories());
     }
@@ -77,15 +81,15 @@ const NewsCom = ({ inMain }) => {
                 isTransparentForDesc={true}
               />
             </div>
-          ) : null}
+          ) : null} 
           {/*============================================= */}
           {inMain ? null : (
             // ==== START CATEGORY ====
             <div className=" tw-w-full">
               {dataNews.loadingCategories ? (
-                <p className=" tw-uppercase">loading categories...</p>
+                <Loading />
               ) : dataNews.statusCategories === "failed" ? (
-                <ErrorMsg msg={dataNews.errorCategories} />
+                <ErrorMsg msg={dataNews.errorCategories || t("errorInGet2") } />
               ) : 
               dataNews.categories[0]?.length !== 0 ?
               (
@@ -117,19 +121,21 @@ const NewsCom = ({ inMain }) => {
           {/*============================================= */}
 
           {/*============================================= */}
-          <div className="tw-grid tw-grid-cols-3 lg:tw-grid-cols-2 sm:tw-grid-cols-1 tw-items-center tw-gap-4 tw-mt-9">
+          <div className={`tw-w-full ${inMain ? "" : "tw-mt-6"}`}>
             {dataNews.loading ? 
             // =========== START HANDLE NEWS AND ARTICLES ================
             (
-              <h1>LOADING...</h1>
-            ) : // date.length === 0
-            // ? <h1>No News</h1>
-            // :
+              <Loading />
+            ) : 
             dataNews.status === "failed" ? (
-              <ErrorMsg msg={dataNews.error} />
+              <ErrorMsg msg={dataNews.error || t("errorInGet")} />
             ) : inMain ? (
-              // ==== IN MAIN PAGE =======
-              dataNewsFilter
+              // ==== IN MAIN PAGE =======  NO FILTER CATEGORY 
+              dataNewsFilter?.length === 0 ?
+              <NoData />
+              :
+              <div className="tw-grid tw-grid-cols-3 lg:tw-grid-cols-2 sm:tw-grid-cols-1 tw-items-center tw-gap-4">
+            {  dataNewsFilter
                 ?.slice(0, 4)
                 ?.map(
                   (
@@ -167,8 +173,16 @@ const NewsCom = ({ inMain }) => {
                     />
                   )
                 )
+                    }
+                </div>
             ) : (
-              // ==== IN NEWS PAGE =======
+              // ==== IN NEWS PAGE ======= CAN USE FILTER CATEGORY HERE AND DATA CHANGE
+              currentNews?.length === 0 
+                  ?
+                  <NoData />
+                  :
+              <div className="tw-grid tw-grid-cols-3 lg:tw-grid-cols-2 sm:tw-grid-cols-1 tw-items-center tw-gap-4">
+                {
               currentNews?.map(
                 (
                   {
@@ -205,6 +219,8 @@ const NewsCom = ({ inMain }) => {
                   />
                 )
               )
+                  }
+                  </div>
             )
             // ==== END HANDLE NEWS AND ARTICLES ====
             }
@@ -213,7 +229,8 @@ const NewsCom = ({ inMain }) => {
 
             {/*============================================= */}
           {!inMain ? (
-            !dataNews.loading && dataNews.status !== "failed" ? (
+            // !dataNews.loading &&
+             dataNews.status !== "failed" ? (
               <div className=" tw-w-full tw-flex tw-justify-center tw-items-center tw-mt-7">
                 <Pagination
                   InPage={newsInPage}

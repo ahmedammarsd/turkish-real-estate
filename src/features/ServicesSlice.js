@@ -1,6 +1,8 @@
 import { createSlice , createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BaseUrl } from "../utils/BaseUrl";
+import { useTranslation } from "react-i18next";
+
 
 const initialState = {
     loading: false,
@@ -10,7 +12,8 @@ const initialState = {
 }
 
 // READ SERVICES 
-export const getServices = createAsyncThunk("getServices" , (_, {rejectWithValue}) => {
+export const getServices = createAsyncThunk("getServices" , ({}, thunkAPI) => {
+    const { t } = useTranslation()
     return axios.get(`${BaseUrl}services_sections`)
     .then( (res) => {
         //console.log("from redux",res.data , res.status)
@@ -18,11 +21,11 @@ export const getServices = createAsyncThunk("getServices" , (_, {rejectWithValue
      })
      .catch( (error) => {
          if (error.status === 500){
-             return rejectWithValue(error.error)
+             return thunkAPI.rejectWithValue(error.error)
          }
          else {
-             const msgErr = "Sorry , Error in get Data"
-             return  rejectWithValue(msgErr)
+             const msgErr = t("errorInGet")
+             return  thunkAPI.rejectWithValue(msgErr)
          }
      })
 });
@@ -37,7 +40,7 @@ const services = createSlice({
         builder.addCase(getServices.fulfilled , (state, action) => {
             state.loading = false;
             state.status = "success";
-            state.services.push(...action.payload);
+            state.services.push(action.payload);
         });
         builder.addCase(getServices.rejected , (state , action) => {
             state.loading = false;

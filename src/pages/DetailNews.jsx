@@ -11,6 +11,8 @@ import { BaseUrl } from "../utils/BaseUrl";
 import ErrorMsg from "../components/shared/ErrorMsg";
 import { getNewsAndArticles } from "../features/NewsAndArticlesSlice";
 import { calcDays } from "../utils/BaseUrl";
+import NoData from "../components/shared/NoData";
+import Loading from "../components/shared/Loading";
 
 
 const DetailNews = () => {
@@ -29,11 +31,13 @@ const DetailNews = () => {
   }, [langCode]);
 
   useEffect(() => {
+    if (dataNews.dataNewsAndArticles?.length === 0){
       dispatch(getNewsAndArticles());
+    }
   },[]);
 
   const newsOrArticle = dataNews.dataNewsAndArticles[0]?.filter((news) => {
-    return news.id == id
+    return news.id == id && news.is_archive === false //============================ remembeer to check is archved
   })
   // const newsOrArticleTwo = !dataNews.status  && newsOrArticle[0];
   return (
@@ -44,10 +48,10 @@ const DetailNews = () => {
         <div className="tw-w-[85%] sm:tw-w-[95%] tw-px-5 md:tw-px-3 sm:tw-px-2 tw-mx-auto tw-py-6 tw-my-2 tw-overflow-hidden">
           {
             dataNews.loading ?
-            <p>LOADING...</p>
+            <Loading />
             :
             dataNews.status == "Fialed" 
-            ? <ErrorMsg msg={dataNews.error || "Sorry , Error in get Data"} />
+            ? <ErrorMsg msg={dataNews.error || t("errorInGet")} />
             :
             newsOrArticle?.length === 1
             ? 
@@ -73,7 +77,7 @@ const DetailNews = () => {
             date={calcDays(newsOrArticle[0].createdAt) || ""}
             youtubeLink={newsOrArticle[0].source_url || ""}
             />
-            : <ErrorMsg msg={"not found"} />
+            : <NoData />
           }
         
           

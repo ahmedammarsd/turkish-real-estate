@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Logo from "../images/logoBestSelect.png";
 import SelectLang from "./SelectLang";
@@ -8,19 +8,21 @@ import Links from "./shared/Links";
 import { linksNavbar , subLinks } from "../Links-navbar/Links";
 import { useDispatch, useSelector } from "react-redux";
 import { getScrollY , getScreenWidth } from "../features/screenSlice";
+import ErrorMsg from "./shared/ErrorMsg";
 
 const Navbar = () => {
   const [showNav, setShowNav] = useState(false);
 
   const selectLang = useSelector( (state) => state.selectLang);
   const screenSizes = useSelector( (state) => state.screenReducer);
+  const servicesSlice = useSelector((state) => state.services);
   const dispatch = useDispatch()
 
   const { screenY } = screenSizes;
 
   const { t } = useTranslation();
 
-  
+ 
   const handleResize = () => addEventListener("resize" , () => dispatch(getScreenWidth()))
   const handleScroll = () => addEventListener("scroll" , () => dispatch(getScrollY()));
   
@@ -71,7 +73,17 @@ const Navbar = () => {
               <Links to={"/"} name={t(linksNavbar[0].name)} isLink1={true} customFunc={() => setShowNav(false)}/>
               <Links to={linksNavbar[1].to} name={t(linksNavbar[1].name)} customFunc={() => setShowNav(false)}/>
               <Links to={linksNavbar[2].to} name={t(linksNavbar[2].name)} 
-               hasSupLinks={true} supLinksData={subLinks}
+               hasSupLinks={true} supLinksData={
+                servicesSlice.loading ? 
+                 "loading"
+                 :
+                 servicesSlice.status !== "failed" ?
+                 "failed"
+                 :
+                servicesSlice.services[0]?.length != 0 
+                ? servicesSlice.services[0]
+                : "noServices"
+               }
               />
               <Links to={linksNavbar[3].to} name={t(linksNavbar[3].name)} customFunc={() => setShowNav(false)}/>
               <Links to={linksNavbar[4].to} name={t(linksNavbar[4].name)} customFunc={() => setShowNav(false)}/>

@@ -1,10 +1,8 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom';
 import { IoMdOpen } from "react-icons/io"
 import { useTranslation } from 'react-i18next';
 
 const ServiceSectionCard = ({id ,services , disc , image , lengthServices, customFunc , isMainServ}) => {
-  const navigate = useNavigate()
   const { t } = useTranslation();
   return (
     <div className="tw-flex tw-flex-col tw-justify-end tw-items-start tw-gap-3 tw-relative
