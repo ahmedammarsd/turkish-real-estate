@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+// stop working with this slice for the more more actions from here
 const initialState = {
     screenWidth: window.innerWidth,
     screenY: window.scrollY

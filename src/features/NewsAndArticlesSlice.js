@@ -42,12 +42,10 @@ export const getCategories = createAsyncThunk("getCategories" , ({},thunkAPI) =>
     return axios.get(`${BaseUrl}categories`)
     .then( (res) => res.data)
     .catch( (error) => {
-        console.log(error)
         if (error.status === 500){
             return thunkAPI.rejectWithValue(error.error)
         }
         else {
-            console.log(error)
             const msgErr = t("errorInGet2")
             return  thunkAPI.rejectWithValue(msgErr)
         }

@@ -12,18 +12,20 @@ import { Autoplay, Pagination } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
+import { handleResize } from "../utils/BaseUrl";
 
 const CardLinks = () => {
   const { t } = useTranslation();
-  const screenWidth = useSelector( (state) => state.screenReducer.screenWidth)
-  // const [screenSize, setSecreenSize] = useState(window.innerWidth);
-  // const handleResize = addEventListener("resize", () => {
-  //   setSecreenSize(window.innerWidth);
-  // });
-  // useEffect(() => {
-  //   handleResize;
-  // }, []);
+  //const screenWidth = useSelector( (state) => state.screenReducer.screenWidth)  STOP WORKING WITH THIS WITH REDUX
+
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    handleResize(setScreenWidth);
+    console.log(screenWidth)
+  }, [screenWidth]);
+  
   return (
     <div className="tw-py-2 tw-relative tw-flex tw-justify-center tw-items-center">
       <div className="tw-w-full">

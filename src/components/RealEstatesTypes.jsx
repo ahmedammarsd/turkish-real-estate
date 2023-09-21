@@ -13,20 +13,22 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import TitleAndDesc from "./shared/TitleAndDesc";
-import { useSelector } from "react-redux";
+import { handleResize } from "../utils/BaseUrl";
 
 const RealEstatesTypes = () => {
   const { t } = useTranslation();
-  const screenWidth = useSelector( (state) => state.screenReducer.screenWidth);
+  //const screenWidth = useSelector( (state) => state.screenReducer.screenWidth);
 
-    // stop this for use
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  
+    // STOP THIS FOR USING FROM REDUX
   // const [screenSize, setSecreenSize] = useState(window.innerWidth);
   // const handleResize = addEventListener("resize", () => {
   //   setSecreenSize(window.innerWidth);
   // });
-  // useEffect(() => {
-  //   handleResize;
-  // }, []);
+  useEffect(() => {
+    handleResize(setScreenWidth);
+  }, [screenWidth]);
   return (
     <div className="tw-py-2 tw-relative tw-flex tw-justify-center tw-items-center">
       <div className="tw-w-full">

@@ -9,25 +9,36 @@ import { linksNavbar , subLinks } from "../Links-navbar/Links";
 import { useDispatch, useSelector } from "react-redux";
 import { getScrollY , getScreenWidth } from "../features/screenSlice";
 import ErrorMsg from "./shared/ErrorMsg";
+import { handleResize, handleScroll } from "../utils/BaseUrl";
 
 const Navbar = () => {
   const [showNav, setShowNav] = useState(false);
 
   const selectLang = useSelector( (state) => state.selectLang);
-  const screenSizes = useSelector( (state) => state.screenReducer);
+  //const screenSizes = useSelector( (state) => state.screenReducer);  // STOP
   const servicesSlice = useSelector((state) => state.services);
   const dispatch = useDispatch()
 
-  const { screenY } = screenSizes;
+  //const { screenY } = screenSizes; // STOP
 
   const { t } = useTranslation();
 
- 
-  const handleResize = () => addEventListener("resize" , () => dispatch(getScreenWidth()))
-  const handleScroll = () => addEventListener("scroll" , () => dispatch(getScrollY()));
-  
-  handleResize();
-  handleScroll();
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [screenY , setScreenY] = useState(window.scrollY)
+
+  useEffect(() => {
+    handleResize(setScreenWidth);
+    console.log(screenWidth)
+  }, [screenWidth]);
+  useEffect(() => {
+    handleScroll(setScreenY)
+  },[screenY])
+
+  // STOP THIS FUNCTIONS FOR ITS ACTIONS IN REDUX ITS VERY BIG AND MORE
+  // const handleResize = () => addEventListener("resize" , () => dispatch(getScreenWidth()))
+  // const handleScroll = () => addEventListener("scroll" , () => dispatch(getScrollY()));
+  // handleResize();
+  // handleScroll();
 
   return (
     <div className="tw-relative">

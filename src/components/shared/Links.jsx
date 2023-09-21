@@ -1,9 +1,10 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { BiChevronDown } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import ErrorMsg from "./ErrorMsg";
 import Loading from "./Loading";
+import { handleResize, handleScroll } from "../../utils/BaseUrl";
 
 const Links = ({
   to,
@@ -16,10 +17,22 @@ const Links = ({
     const [ showSubLink , setShowSubLink] = useState(false);
     const navigate = useNavigate();
     const selectLang = useSelector( (state) => state.selectLang);
-    let screenSizes = useSelector( (state) => state.screenReducer);
 
-    const { screenWidth } = screenSizes;
-    const { screenY } = screenSizes;
+    // STOP WORKING THIS FROM REDUX
+   // let screenSizes = useSelector( (state) => state.screenReducer);
+    // const { screenWidth } = screenSizes;
+    // const { screenY } = screenSizes;
+
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+    const [screenY , setScreenY] = useState(window.scrollY)
+
+  useEffect(() => {
+    handleResize(setScreenWidth);
+    console.log(screenWidth)
+  }, [screenWidth]);
+  useEffect(() => {
+    handleScroll(setScreenY)
+  },[screenY])
     
   
   return (

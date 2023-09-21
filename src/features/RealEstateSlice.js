@@ -11,19 +11,26 @@ const initialState = {
 }
 
 // READ REAL ESTATE
-export const getRealEstates = createAsyncThunk("getRealEstates" , ({}, thunkAPI) => {
+export const getRealEstates = createAsyncThunk("getRealEstates" , async({}, thunkAPI) => {
     const { t } = useTranslation();
-    return axios.get(`${BaseUrl}real_estate`)
-    .then( (res) => res.data)
-    .catch( (error) => {
-        if (error.status === 500){
-            return thunkAPI.rejectWithValue(error.error)
-        }
-        else {
-            const msgErr = t("errorInGet")
-            return  thunkAPI.rejectWithValue(msgErr)
-        }
-    })
+    // return axios.get(`${BaseUrl}real_estate`)
+    // .then( (res) => res.data)
+    // .catch( (error) => {
+    //     if (error.status === 500){
+    //         return thunkAPI.rejectWithValue(error.error)
+    //     }
+    //     else {
+    //         const msgErr = t("errorInGet")
+    //         return  thunkAPI.rejectWithValue(error)
+    //     }
+    // })
+    try{
+        const res = await axios.get(`${BaseUrl}real_estate`);
+        return res.data;
+    }
+    catch (errr){
+        return errr
+    }
 })
 // END READ REAL ESTATE
 

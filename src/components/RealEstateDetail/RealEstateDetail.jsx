@@ -12,13 +12,26 @@ import { AiFillCheckCircle } from "react-icons/ai";
 import { ImLocation2 } from "react-icons/im";
 import { Tb360View, TbBuildingSkyscraper } from "react-icons/tb";
 
-import { CgUnavailable } from "react-icons/cg";
 import { useTranslation } from "react-i18next";
 import { BsHouseAddFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import FormRequest from "../FormRequest";
-import { RxCross2 } from "react-icons/rx"
+import { RxCross2 } from "react-icons/rx";
+import imageNotFound from "../../images/imagecompressor/Image_not_available.png";
 
+//=============================================================
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+// import required modules
+import { Pagination, Navigation } from 'swiper/modules';
+
+//=============================================================
 const InfoRealEstate = ({ icon, title }) => {
   return (
     <div
@@ -47,6 +60,7 @@ const MainInfoRealEstate = ({ icon, title, customFunc, active }) => {
 };
 const RealEstateDetail = ({
   image,
+  images,
   title,
   town,
   townDirection,
@@ -89,7 +103,31 @@ const RealEstateDetail = ({
   return (
     <div>
       <div className="tw-w-full tw-h-[500px]">
+        {
+          images !== "" && images?.length != 0 ?
+          <Swiper
+        pagination={{
+          type: 'progressbar',
+        }}
+        navigation={true}
+        modules={[Pagination, Navigation]}
+        className="mySwiper"
+      >
+        <SwiperSlide>
         <img src={image} className="tw-w-full tw-h-full tw-object-cover" />
+        </SwiperSlide>
+        {
+          images?.map((im,index) => (
+            <SwiperSlide key={index}>
+              <img src={im?.image_url === "" ? imageNotFound : im?.image_url} />
+            </SwiperSlide>
+          ))
+        }
+      </Swiper>
+      : 
+      <img src={image} className="tw-w-full tw-h-full tw-object-cover" />
+        }
+        
       </div>
        {/*icon form req */}
        <div className={`tw-fixed tw-bottom-3 tw-z-3 tw-backdrop-blur-[4px] tw-bg-transparent-white2 tw-flex tw-justify-center tw-items-center tw-cursor-pointer ${selectLang.currenLanguageCode === "en" ? "tw-left-3" : "tw-right-3"}`}
