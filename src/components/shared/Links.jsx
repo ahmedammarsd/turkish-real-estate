@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import ErrorMsg from "./ErrorMsg";
 import Loading from "./Loading";
 import { handleResize, handleScroll } from "../../utils/BaseUrl";
+import { useTranslation } from "react-i18next";
 
 const Links = ({
   to,
@@ -14,6 +15,7 @@ const Links = ({
   hasSupLinks,
   supLinksData,
 }) => {
+  const { t } = useTranslation()
     const [ showSubLink , setShowSubLink] = useState(false);
     const navigate = useNavigate();
     const selectLang = useSelector( (state) => state.selectLang);
@@ -28,7 +30,6 @@ const Links = ({
 
   useEffect(() => {
     handleResize(setScreenWidth);
-    console.log(screenWidth)
   }, [screenWidth]);
   useEffect(() => {
     handleScroll(setScreenY)
@@ -82,7 +83,7 @@ const Links = ({
         <div className={`tw-flex tw-flex-col tw-overflow-hidden tw-w-[350px] tw-min-h-[50px] tw-max-h-[400px] tw-overflow-y-auto lg:tw-w-full tw-p-3
          tw-backdrop-blur-sm lg:tw-bg-white tw-rounded-sm lg:-tw-mt-1 lg:tw-border-t lg:tw-border-gray-300
          ${ screenY > 90 ?
-          "tw-bg-transparent-white9 tw-border-t tw-border-gray-300"
+          "tw-bg-transparent-white9 tw-border-t tw-border-gray-200"
         : "tw-bg-transparent-white2"
         }
          `}

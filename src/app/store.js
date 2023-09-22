@@ -4,6 +4,7 @@ import SelectLangReducer from "../features/SelectLangSlice";
 import newsReducer from "../features/NewsAndArticlesSlice";
 import servicesReducer from "../features/ServicesSlice";
 import realEstateReducer from "../features/RealEstateSlice";
+import requestReducer from "../features/FormRequestSlice"
 
 const store = configureStore({
     reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
         newsAndArticles: newsReducer,
         services: servicesReducer,
         realEstates: realEstateReducer,
+        request: requestReducer,
        // screenReducer,
     }
 })

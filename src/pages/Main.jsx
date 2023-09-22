@@ -8,10 +8,7 @@ import ServicesSection from "../components/ServicesSection";
 import RealEstatesTypes from "../components/RealEstatesTypes";
 import RealEstates from "../components/RealEstates";
 import NewsCom from "../components/NewsCom";
-import newsImage from "../images/imagecompressor/header4.jpg"
-import RealEstateDetail from "../components/RealEstateDetail/RealEstateDetail";
 import About from "../components/About";
-import Loading from "../components/shared/Loading";
 
 
 
@@ -26,7 +23,7 @@ const Main = () => {
   return (
     <div>
       
-        <Header />
+      <Header />
       <CardLinks />
       <ServicesSection inMain={true}/>
       <RealEstatesTypes />

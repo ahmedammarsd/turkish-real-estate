@@ -20,7 +20,7 @@ export const language = [
 // const currenLanguage = language.find(l => l.code === currenLanguageCode);
 
 const initialState = {
-    currentLanguageCode : localStorage.getItem("i18nextLng") || "en",
+    currentLanguageCode : localStorage.getItem("i18nextLng") || "ar",
     currentLanguage : language.find(l => l.code === localStorage.getItem("i18nextLng") || "en"),
 }
 

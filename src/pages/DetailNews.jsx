@@ -24,8 +24,8 @@ const DetailNews = () => {
   const dataNews = useSelector((state) => state.newsAndArticles);
 
  
-  window.scrollTo({top: 100, behavior: "smooth"})
   useEffect(() => {
+    window.scrollTo({top: 100, behavior: "smooth"})
     document.title = t(linksNavbar[3].name);
    //console.log(newsOrArticle , dataNews)
   }, [langCode]);

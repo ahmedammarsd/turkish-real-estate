@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/semantic-ui.css"
+import { useDispatch, useSelector } from "react-redux";
+import pulse from "../images/loading/Pulse.svg";
+import { addRequest, tryAgain } from "../features/FormRequestSlice";
+import { useNavigate, useParams } from "react-router-dom";
+import SuccessMsg from "./shared/SuccessMsg";
+import ErrorMsg from "./shared/ErrorMsg";
 
 
 const Lable = ({ labelInput }) => (
@@ -13,6 +19,10 @@ const Lable = ({ labelInput }) => (
 const FormRequest = () => {
 
   const { t } = useTranslation();
+  const parms = useParams()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const request = useSelector((state) => state.request);
 // FORM
   const [nameUser , setNameUser] = useState("");
   const [phoneNumber , setPhoneNumber] = useState("");
@@ -83,6 +93,19 @@ const FormRequest = () => {
     validNameUser(nameUser);
     validEmail(email)
     validPhone(phoneNumber)
+
+    const dataForm = {
+      full_name: nameUser,
+      phone: phoneNumber,
+      email: email,
+      real_estates_id: parms?.idReal,
+      platform: "Web"
+    }
+
+    if (nameUser !== "" && phoneNumber !== "" && email !== "" && !showMsgErrNameUser && !showMsgErrPhone && !showMsgErrEmail){
+      dispatch(addRequest(dataForm))
+      setTimeout(() => navigate("/") , 4000)
+    }
   }
   // =================
   // END FORM
@@ -91,7 +114,23 @@ const FormRequest = () => {
   return (
     <div className="tw-w-full tw-h-full">
       <div className=" md:tw-mt-5 tw-flex tw-justify-center tw-items-center tw-w-full tw-h-full">
+        {
+
+        }
         <form className=" tw-w-[50%] md:tw-w-full tw-p-4" onSubmit={handleSubmit}>
+          {
+            request.status === "success" //&& request.statusReq == 201 
+            ?
+            <SuccessMsg msg={t("successAdd")}/>
+            : 
+            <>
+            <ErrorMsg msg={t("erroInAdd")} />
+            <button className=" tw-w-full tw-text-white tw-bg-main-blue tw-py-3 tw-rounded-sm hover:tw-bg-blue-700 tw-capitalize" 
+            onClick={() => dispatch(tryAgain())}
+            >{t("tryAgain")}</button>
+            </>
+
+          }
           <div className="tw-flex tw-flex-col tw-items-start tw-gap-5 md:tw-gap-4">
             <div className="tw-w-full tw-flex tw-flex-col tw-items-start tw-gap-2">
               <Lable labelInput={"name"} />
@@ -195,8 +234,14 @@ const FormRequest = () => {
               }
             </div>
             <div className="tw-w-full tw-mt-5">
-                <button className=" tw-w-full tw-text-white tw-bg-main-blue tw-py-3 tw-rounded-sm hover:tw-bg-blue-700 tw-capitalize">
-                  {t("send")}
+                <button className=" tw-w-full tw-text-white tw-bg-main-blue tw-py-3 tw-rounded-sm hover:tw-bg-blue-700 tw-capitalize"
+                disabled={request.loading}
+                >
+                  {
+                    request.loading ?
+                    <img src={pulse} className="tw-w-7 tw-object-cover" />
+                    : t("send")
+                  }
                 </button>
               </div>
           </div>

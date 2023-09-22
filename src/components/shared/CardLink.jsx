@@ -1,10 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CardLink = ({ to, icon, title }) => {
+const CardLink = ({ to, icon, title , value }) => {
   return (
     <Link
       to={to}
+      state={{
+        FromCardRealEstaeType: value
+      }}
       className="tw-flex tw-flex-col tw-h-[190px] sm:tw-h-[150px] tw-justify-center tw-items-center tw-mt-2 tw-gap-8 sm:tw-gap-6 tw-border 
     tw-border-gray-50 hover:tw-border-main-blue tw-rounded-md tw-p-3 tw-shadow-sm hover:tw-shadow-lg 
     tw-cursor-pointer tw-transition-all tw-duration-500 tw-ease-in-out"

@@ -23,9 +23,8 @@ const CardLinks = () => {
 
   useEffect(() => {
     handleResize(setScreenWidth);
-    console.log(screenWidth)
   }, [screenWidth]);
-  
+
   return (
     <div className="tw-py-2 tw-relative tw-flex tw-justify-center tw-items-center">
       <div className="tw-w-full">

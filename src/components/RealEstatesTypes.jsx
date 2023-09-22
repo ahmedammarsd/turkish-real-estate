@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { realEstateTypes } from "../Links-navbar/Links";
+import { linksNavbar, realEstateTypes } from "../Links-navbar/Links";
 import CardLink from "./shared/CardLink";
 import { useTranslation } from "react-i18next";
 
@@ -42,7 +42,7 @@ const RealEstatesTypes = () => {
           >
             <Swiper
               autoplay={{
-                delay: 1000,
+                delay: 4000,
               }}
               loop={true}
               speed={1600}
@@ -60,6 +60,8 @@ const RealEstatesTypes = () => {
                   <CardLink
                     icon={link.icon}
                     title={t(link.type)}
+                    to={linksNavbar[1].to}
+                    value={link.value}
                   />
                 </SwiperSlide>
               ))}

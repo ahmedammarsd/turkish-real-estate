@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getScrollY , getScreenWidth } from "../features/screenSlice";
 import ErrorMsg from "./shared/ErrorMsg";
 import { handleResize, handleScroll } from "../utils/BaseUrl";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [showNav, setShowNav] = useState(false);
@@ -22,13 +23,12 @@ const Navbar = () => {
   //const { screenY } = screenSizes; // STOP
 
   const { t } = useTranslation();
-
+  const navigate = useNavigate();
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [screenY , setScreenY] = useState(window.scrollY)
 
   useEffect(() => {
     handleResize(setScreenWidth);
-    console.log(screenWidth)
   }, [screenWidth]);
   useEffect(() => {
     handleScroll(setScreenY)
@@ -51,7 +51,9 @@ const Navbar = () => {
       `}>
         <div className="tw-flex tw-justify-between tw-items-center tw-w-[85%] lg:tw-w-[90%]">
           {/* logo */}
-          <div className="tw-w-[80px] tw-h-[80px] tw-p-2 tw-cursor-pointer tw-rounded-md lg:tw-w-[60px] lg:tw-h-[60px] sm:tw-w-[50px] sm:tw-h-[50px] tw-duration-300">
+          <div className="tw-w-[80px] tw-h-[80px] tw-p-2 tw-cursor-pointer tw-rounded-md lg:tw-w-[60px] lg:tw-h-[60px] sm:tw-w-[50px] sm:tw-h-[50px] tw-duration-300"
+          onClick={() => navigate("/")}
+          >
             <img src={Logo} alt="logo" className="tw-w-full tw-h-full tw-object-cover tw-drop-shadow-lg" />
           </div>
           {/* logo */}
@@ -83,7 +85,7 @@ const Navbar = () => {
 
               <Links to={"/"} name={t(linksNavbar[0].name)} isLink1={true} customFunc={() => setShowNav(false)}/>
               <Links to={linksNavbar[1].to} name={t(linksNavbar[1].name)} customFunc={() => setShowNav(false)}/>
-              <Links to={linksNavbar[2].to} name={t(linksNavbar[2].name)} 
+              <Links to={linksNavbar[2].to} name={t(linksNavbar[2].name)} customFunc={() => setShowNav(false)} 
                hasSupLinks={true} supLinksData={
                 servicesSlice.loading ? 
                  "loading"
@@ -97,8 +99,8 @@ const Navbar = () => {
                }
               />
               <Links to={linksNavbar[3].to} name={t(linksNavbar[3].name)} customFunc={() => setShowNav(false)}/>
-              <Links to={linksNavbar[4].to} name={t(linksNavbar[4].name)} customFunc={() => setShowNav(false)}/>
-              <Links to={linksNavbar[5].to} name={t(linksNavbar[5].name)} customFunc={() => setShowNav(false)}/>
+              {/* <Links to={linksNavbar[4].to} name={t(linksNavbar[4].name)} customFunc={() => setShowNav(false)}/> */}
+              {/* <Links to={linksNavbar[5].to} name={t(linksNavbar[5].name)} customFunc={() => setShowNav(false)}/> */}
             <div className=" tw-w-full tw-hidden lg:tw-inline-block tw-h-28">
               <div className="tw-flex tw-justify-center tw-items-center tw-w-full tw-h-full">
                <SelectLang />

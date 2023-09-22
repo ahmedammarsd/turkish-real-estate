@@ -34,11 +34,11 @@ export const linksNavbar = [
         name:"articles",
         to:"/articles",
     },
-    {
-        icon: <BsClockHistory />,
-        name:"reminder",
-        to:"/reminder",
-    }   
+    // {
+    //     icon: <BsClockHistory />,
+    //     name:"reminder",
+    //     to:"/reminder",
+    // }   
 ];
 
 export const subLinks = [
@@ -61,35 +61,43 @@ export const subLinks = [
 export const realEstateTypes = [
     {
         type: "all",
-        icon: <DiGhostSmall />
+        icon: <DiGhostSmall />,
+        value: ""
     },
     {
         type: "residential",
-        icon: <BsBuildings />
+        icon: <BsBuildings />,
+        value: "سكني"
     },
     {
         type: "commercial",
-        icon: <CiMoneyBill />
+        icon: <CiMoneyBill />,
+         value: "تجاري"
     },
     {
         type: "lands",
-        icon: <IoTabletLandscapeOutline />
+        icon: <IoTabletLandscapeOutline />,
+         value: "ارض"
     },
     {
         type: "buildings",
-        icon: <BsBuildings />
+        icon: <BsBuildings />,
+         value: "مبنى"
     },
     {
         type: "villas",
-        icon: <MdOutlineVilla />
+        icon: <MdOutlineVilla />,
+         value: "فيلا"
     },
     {
         type: "houses",
-        icon: <MdOutlineMapsHomeWork />
+        icon: <MdOutlineMapsHomeWork />,
+         value: "شقة"
     },
     {
         type: "apartments",
-        icon: <MdOutlineApartment />
+        icon: <MdOutlineApartment />,
+         value: "منزل"
     },
 ];
 

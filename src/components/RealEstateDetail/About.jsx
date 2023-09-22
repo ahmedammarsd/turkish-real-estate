@@ -29,8 +29,10 @@ const About = ({desc , features , realEstateContent}) => {
       <div className="tw-grid tw-grid-cols-3 lg:tw-grid-cols-2 sm:tw-grid-cols-1 tw-items-center tw-gap-3 tw-w-full">
         {
           features?.map((feture , index) => (
-            <Feature image={feture?.feature?.image_url === "" ? imageNotFound : feture?.feature?.image_url } 
-            feature={feture?.feature?.description || "" }/>
+            <Feature key={index} image={feture?.feature?.image_url === "" ? imageNotFound : feture?.feature?.image_url } 
+            feature={feture?.feature?.name || "" }
+            descFeture={feture?.feature?.description || ""}
+            />
           ))
         }
         </div>

@@ -14,13 +14,13 @@ import imageNotFound from "../images/imagecompressor/Image_not_available.png";
 
 const DetailRealEstate = () => {
   const { t } = useTranslation();
-  const {idReal} = useParams()
-  let  desc = "ahmed ammmar sidddig , the war in sudan in five month and no one in know when finsh \n every one hope to back to his home \n and see the cloothes in the home ahmed ammmar sidddig , the war in sudan in five month and no one in know when finsh \n every one hope to back to his home \n and see the cloothes in the home  ahmed ammmar sidddig , the war in sudan in five month and no one in know when finsh \n every one hope to back to his home \n and see the cloothes in the home  ahmed ammmar sidddig , the war in sudan in five month and no one in know when finsh \n every one hope to back to his home \n and see the cloothes in the home ";
+  const {idReal} = useParams();
   const dispatch = useDispatch();
   const langCode = useSelector((state) => state.selectLang.currentLanguageCode);
   const realEstates = useSelector((state) => state.realEstates);
   
   useEffect(() => {
+    window.scrollTo({top: 100, behavior: "smooth"})
     if (realEstates.realEstates?.length === 0){
     dispatch(getRealEstates())
     }

@@ -14,7 +14,11 @@ const initialState = {
 // READ SERVICES 
 export const getServices = createAsyncThunk("getServices" , ({}, thunkAPI) => {
     const { t } = useTranslation()
-    return axios.get(`${BaseUrl}services_sections`)
+    return axios.get(`${BaseUrl}services_sections` , {
+        headers:{
+            'Content-Type': 'application/json',
+        }
+    })
     .then( (res) => {
         //console.log("from redux",res.data , res.status)
          return res.data

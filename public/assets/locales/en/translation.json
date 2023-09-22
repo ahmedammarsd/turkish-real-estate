@@ -31,7 +31,11 @@
     "errorInGet": "Sorry, error in getting data",
     "errorInGet2": "Sorry , Error in getting Data Categories",
     "noServices": "Sorry, no services yet",
+    "erroInAdd": "Sorry , Error in add request please try again",
 
+    "successAdd" : "Your request has been added successfully",
+    "tryAgain" : "Try again",
+    
     "notSpecify" : "not specify",
 
     "description":"description",
@@ -44,6 +48,8 @@
     "descVirtual": "Sorry , not available now",
     "feature": "features",
 
+    "rent" : "rent",
+    "buy": "buy",
     "twon":"town",
     "compound":"compound",
     "typeReal":"type real-estate",
@@ -54,6 +60,7 @@
     "min":"min",
     "max":"max",
     "search":"search",
+    "notEqual" : "not equal or biger than",
 
     "nameMsgErrOne": "The Field Is required",
     "nameMsgErrTwo": "The name not valid",

@@ -3,7 +3,7 @@ import TitleAndDesc from "./shared/TitleAndDesc";
 import { useTranslation } from "react-i18next";
 import CardRealEstate from "./shared/CardRealEstate";
 import testImage from "../images/imagecompressor/img5.jpg"
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { linksNavbar } from "../Links-navbar/Links";
 import FormFilterRealEstate from "./FormFilterRealEstate";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,22 +22,56 @@ const RealEstates = ({inMain}) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation()
     const selectLang = useSelector( (state) => state.selectLang);
     const realEstates = useSelector((state) => state.realEstates);
     const [controlFormFilter , setControlFormFilter] = useState(false);
 
     useEffect(() => {
       if (realEstates.realEstates?.length === 0){
-      dispatch(getRealEstates())
+      dispatch(getRealEstates());
       }
       // axios.get(`${BaseUrl}real_estate`)
       // .then( (res) => console.log(res.data))
       // .catch( (err) => console.log(err))
     },[])
-
+    const FromCardRealEstaeType = location.state?.FromCardRealEstaeType;
+    const [isRent , setIsRent] = useState(true)
+    const [twon , setTown] = useState("");
+    const [compound ,setCompound] = useState("");
+    const [typeRealEstate , setTypeRealEstatet] = useState("");
+    const [features , setFeatures] = useState(""); // NO WORDING NOW
+    const [typeDesign , setTypeDesign] = useState(""); // NO WORDING NOW
+    const [minPrice , setMinPrice] = useState(0)
+    const [maxPrice , setMaxPrice] = useState(0)
+    const [minSpace , setMinSpace] = useState(0)
+    const [maxSpace , setMaxSpace] = useState(0)
     const realEstatesFilter = realEstates.realEstates[0]?.filter( (realEstate) => realEstate.is_archive === false && realEstate.is_available === true)
-    const realEstateTwoChangeByFormFilter = realEstatesFilter?.filter( (real) => {})
-    
+    /// ========== FILTER REAL ESTATE =================
+    const realEstateTwoChangeByFormFilter = realEstatesFilter?.filter( (real) => real[0]?.offer_type === (isRent === true ? "ايجار" : "شراء")
+    || twon !== "" ? real.residential_compound?.town_id  == twon : null
+    || compound !== "" ? real.residential_compound?.id == compound : null
+    || typeRealEstate !== ""  ? real.type === typeRealEstate : null 
+    || minPrice !== 0 && maxPrice !== 0 ? real.real_estate_contents[0]?.price > minPrice && real.real_estate_contents[0]?.price < maxPrice : null
+    || minSpace !== 0 && maxSpace !== 0 ? real.real_estate_contents[0]?.space > minSpace && real.real_estate_contents[0]?.space < maxSpace : null
+    || FromCardRealEstaeType !== ""  ? real.type === FromCardRealEstaeType : null ,
+    )
+    // EXAMPLE FOR HOW TO DO FILTER FOR THE REAL ESTATE
+    // const searchdExercises = exercisesData.filter(
+    //   (exercise) => exercise.name.toLowerCase().includes(search)
+    //   || exercise.target.toLowerCase().includes(search)
+    //   || exercise.equipment.toLowerCase().includes(search)
+    //   || exercise.bodyPart.toLowerCase().includes(search),
+    // );
+
+    // TEST FOR FORM FILTER
+    // console.log(twon && twon)
+    // console.log(compound && compound)
+    // console.log(typeRealEstate && typeRealEstate)
+    // console.log(minPrice && minPrice)
+    // console.log(maxPrice && maxPrice)
+    // console.log(minSpace && minSpace)
+    // console.log(maxSpace && maxSpace)
     //====== PAGINATION ======
     const [currentPage, setCurrentPage] = useState(1);
     const [reaEstateInPage] = useState(6);
@@ -89,11 +123,22 @@ const RealEstates = ({inMain}) => {
               <>
             
             <div className={`tw-w-[40%] lg:tw-w-full md:tw-fixed md:tw-h-screen md:tw-bg-transparent-black4 tw-backdrop-blur-[4px] md:tw-left-0 tw-z-8 md:tw-z-10 ${controlFormFilter ? "lg:tw-block md:tw-scale-100 md:tw-top-0" : "lg:tw-hidden md:tw-scale-0 md:tw-top-[-1000px]"} tw-transition-all tw-duration-1000`}>
-              <span className={`tw-hidden md:tw-block md:tw-absolute tw-top-1 ${selectLang.currentLanguageCode === "en" ? "tw-right-4" : "tw-left-4"} tw-text-red-600 tw-z-10 tw-p-3 tw-shadow-sm hover:tw-text-red-600 tw-cursor-pointer hover:tw-bg-gray-50 tw-rounded-md tw-text-xl tw-transition-all tw-duration-200 tw-ease-in-out`}
+              <span className={`tw-hidden md:tw-block md:tw-absolute tw-top-1 ${selectLang.currentLanguageCode === "en" ? "tw-right-4" : "tw-left-4"} tw-text-red-600 tw-z-10 tw-p-2 tw-shadow-sm hover:tw-text-red-600 tw-cursor-pointer hover:tw-bg-gray-50 tw-rounded-md tw-text-xl tw-transition-all tw-duration-200 tw-ease-in-out`}
                onClick={() => setControlFormFilter(false)}>
                 <RxCross2 />
               </span>
-              <FormFilterRealEstate /> {/* FORM FILTER */}
+              {/* FORM FILTER */}
+              <FormFilterRealEstate 
+              setTown={setTown}
+              setCompound={setCompound}
+              setTypeReal={setTypeRealEstatet}
+              setPriceMin={setMinPrice}
+              setPriceMax={setMaxPrice}
+              setSpaceMin={setMinSpace}
+              setSpaceMax={setMaxSpace}
+              isRent={isRent}
+              setIsRent={setIsRent}
+              /> 
             </div>
             </>
             : null // NOTHING TO SHOW IN MAIN
