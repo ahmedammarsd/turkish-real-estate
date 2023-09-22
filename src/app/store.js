@@ -13,7 +13,6 @@ const store = configureStore({
         services: servicesReducer,
         realEstates: realEstateReducer,
         request: requestReducer,
-       // screenReducer,
     }
 })
 

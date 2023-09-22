@@ -140,7 +140,7 @@ const RealEstateDetail = ({
         {/*icon form req */}
          {/*form Request */}
          {
-         <div className={` tw-fixed tw-left-0 tw-w-full tw-h-screen tw-bg-transparent-black4 tw-backdrop-blur-[4px]  tw-z-10 ${controlFormReq ? "tw-top-0" : "tw-top-[0px]"} tw-transition-all tw-duration-1000`}>
+         <div className={` tw-fixed tw-left-0 tw-w-full tw-h-screen tw-bg-transparent-black4 tw-backdrop-blur-[4px]  tw-z-10 ${controlFormReq ? "tw-top-0" : "tw-top-[-1500px]"} tw-transition-all tw-duration-1000`}>
          <span className={`tw-absolute tw-top-1 ${selectLang.currenLanguageCode === "en" ? "tw-left-4" : "tw-right-4"} tw-text-red-600 tw-z-10 tw-p-3 tw-shadow-sm hover:tw-text-red-600 tw-cursor-pointer hover:tw-bg-gray-50 tw-rounded-md tw-text-xl tw-transition-all tw-duration-200 tw-ease-in-out`}
           onClick={() => setControlFormReq(false)}>
            <RxCross2 />

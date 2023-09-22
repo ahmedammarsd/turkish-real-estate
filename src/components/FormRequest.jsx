@@ -122,7 +122,7 @@ const FormRequest = () => {
             request.status === "success" //&& request.statusReq == 201 
             ?
             <SuccessMsg msg={t("successAdd")}/>
-            : 
+            : request.status === "failed"  ?
             <>
             <ErrorMsg msg={t("erroInAdd")} />
             <button className=" tw-w-full tw-text-white tw-bg-main-blue tw-py-3 tw-rounded-sm hover:tw-bg-blue-700 tw-capitalize" 
@@ -130,8 +130,8 @@ const FormRequest = () => {
             >{t("tryAgain")}</button>
             </>
 
-          }
-          <div className="tw-flex tw-flex-col tw-items-start tw-gap-5 md:tw-gap-4">
+            :
+            <div className="tw-flex tw-flex-col tw-items-start tw-gap-5 md:tw-gap-4">
             <div className="tw-w-full tw-flex tw-flex-col tw-items-start tw-gap-2">
               <Lable labelInput={"name"} />
               <input type="text" className={`${styleSelect} ${showMsgErrNameUser ? "tw-border-red-500" : null}`}
@@ -245,6 +245,9 @@ const FormRequest = () => {
                 </button>
               </div>
           </div>
+
+          }
+          
         </form>
       </div>
     </div>

@@ -27,15 +27,17 @@ const FormFilterRealEstate = ({isRent , setIsRent , setTown , setCompound , setT
   }
   }
   pushStates()
+  
   //let pp = testAarry.filter( (ele, ind) => ind === testAarry.findIndex( elem => elem.id === ele.id )) REMOVE DUPLICATE OBJECT IN ARRAY
   const removeDuplicateStates = [...new Set(statesArray)];
   //const removeDuplicateEnCompound = [...new Set(compounArray)];
   const removeDuplicateCompound = compoundArray.filter( (ele, ind) => ind === compoundArray.findIndex( elem => elem.id === ele.id )) // REMOVE THE DUPLICATE COMPOUND
+  const removeDuplicateTwon = compoundArray.filter( (ele, ind) => ind === compoundArray.findIndex( elem => elem.town_id === ele.town_id )) // AFTER COMPUND REMOVE THE DUPLICATE TWON BUCASE MAY THA TWO COMPOUND HAS SAME TWON
   const removeDuplicateTypeReal = [...new Set(typeReal)];
   //const removeTest = [new Set(testAarry.id)] // ITS TEST ARRAY FOR REMOVE DUPLICATE VALUE
   
   const styleSelect =
-    "tw-w-full tw-h-9 xs:tw-h-7 shadow-sm md:tw-backdrop-blur-sm md:tw-bg-transparent-white5 tw-ring-1 tw-ring-gray-50 md:tw-ring-0 tw-backdrop-blur-md tw-bg-white tw-rounded-sm tw-border-b-[.7px] md:tw-border-b-[2px] tw-border-main-blue md:tw-border-gray-100 focus:tw-border-none tw-px-3 tw-text-gray-500 md:placeholder:tw-text-gray-100 md:tw-text-gray-700 focus:tw-ring-2 focus:tw-ring-inset focus:tw-ring-main-blue sm:tw-text-sm";
+    "tw-w-full tw-h-9 xs:tw-h-7 shadow-sm md:tw-backdrop-blur-sm md:tw-bg-transparent-white5 tw-ring-1 tw-ring-gray-50 md:tw-ring-0 tw-backdrop-blur-md tw-bg-white tw-rounded-sm tw-border-b-[.7px] md:tw-border-b-[2px] tw-border-main-blue md:tw-border-gray-100 focus:tw-border-none tw-px-3 tw-text-gray-500 md:placeholder:tw-text-gray-100 md:tw-text-gray-700 focus:tw-ring-2 focus:tw-ring-inset focus:tw-ring-main-blue tw-capitalize sm:tw-text-sm";
   //const styleInput = "tw-block tw-w-full tw-rounded-md tw-border-0 tw-px-3.5 tw-py-2 tw-text-gray-900 tw-shadow-sm tw-ring-1 tw-ring-inset tw-ring-gray-300 placeholder:tw-text-gray-400 focus:tw-ring-2 focus:tw-ring-inset focus:tw-ring-indigo-600 sm:tw-text-sm sm:tw-leading-6"
 
   // PRICE STATE AND VALIDATION
@@ -134,7 +136,7 @@ const checkSpace = (min , max) => {
                  >
                    <option value="">{t("all")}</option>
                   {
-                    removeDuplicateCompound?.map( (state , index) => (
+                    removeDuplicateTwon?.map( (state , index) => (
                       <option key={index} value={state.town_id}>{state.state.city}</option>
                     ))
                   }
@@ -156,7 +158,7 @@ const checkSpace = (min , max) => {
                      <option value="">{t("all")}</option>
                      {
                      
-                      removeDuplicateCompound?.map((compound) => (
+                      removeDuplicateCompound?.map((compound , index) => (
                         <option key={index} value={compound.id}>{ langCode == "en" ? compound.en_name : compound.ar_name}</option>
                       ))
                       
@@ -178,7 +180,7 @@ const checkSpace = (min , max) => {
                  >
                    <option value="">{t("all")}</option>
                    {
-                    removeDuplicateTypeReal?.map( (type) => (
+                    removeDuplicateTypeReal?.map( (type , index) => (
                       <option key={index} value={type}>{
                         type === "منزل" ? t("houses")
                         : type === "شقة" ? t("apartments") 

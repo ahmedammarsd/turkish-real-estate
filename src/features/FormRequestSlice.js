@@ -14,7 +14,6 @@ const initialState = {
 
 // CREATE OR ADD FORM
  export const addRequest = createAsyncThunk("addRequest" , (data , thunkAPI) => {
-    const { t } = useTranslation();
     return axios.post(`${BaseUrl}forms` , data , {
         headers:{
             'Content-Type': 'application/json',
@@ -26,7 +25,7 @@ const initialState = {
             return thunkAPI.rejectWithValue(err.error)
         }
         else {
-            const msgErr = t("erroInAdd")
+            const msgErr = ""
             return  thunkAPI.rejectWithValue(msgErr)
         }
     })

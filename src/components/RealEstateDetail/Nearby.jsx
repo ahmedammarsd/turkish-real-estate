@@ -1,10 +1,8 @@
 import React from 'react'
 import NearestTourist from './NearestTourist'
-import testImage from '../../images/imagecompressor/img8.jpg';
 import imageNotFound from "../../images/imagecompressor/Image_not_available.png";
 import NoData from '../shared/NoData';
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+
 
 const Nearby = ({nearTourist ,  latitude , longitude}) => {
   
@@ -22,14 +20,18 @@ const Nearby = ({nearTourist ,  latitude , longitude}) => {
     return dist
 }
   return (
-    <div className="tw-grid tw-grid-cols-3 lg:tw-grid-cols-2 sm:tw-grid-cols-1 tw-items-center tw-gap-3">
+    <div>
       {
         nearTourist?.length === 0 || nearTourist !== "" ?
         <NoData />
-        : nearTourist?.map((tourst , index) => (
+        :
+    <div className="tw-grid tw-grid-cols-3 lg:tw-grid-cols-2 sm:tw-grid-cols-1 tw-items-center tw-gap-3">
+        { nearTourist?.map((tourst , index) => (
           <NearestTourist key={index} image={tourst?.tourist_area?.image_url === "" ? imageNotFound : tourst?.feature?.image_url}
            title={tourst?.tourist_area?.name} distance={calcDistance(latitude , longitude , tourst?.tourist_area?.latitude , tourst?.tourist_area?.longitude , "K")} />
         ))
+}
+    </div>
       }
       
     </div>

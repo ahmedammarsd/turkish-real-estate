@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import ReactPlayer from 'react-player';
 
 const Project = ({descCompaond , moreInfo , youtubeLink}) => {
-  const { t } = useTranslation
+  const { t } = useTranslation()
   return (
     <div className="tw-flex tw-flex-col tw-items-start tw-gap-2">
        <div>

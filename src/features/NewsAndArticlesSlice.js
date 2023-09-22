@@ -15,9 +15,7 @@ const initialState = {
 }
 
 // READ ACTION
-export const getNewsAndArticles = createAsyncThunk("getNewsAndArticles" , ({}, thunkAPI) => {
-    const { t } = useTranslation();
-    console.log("from arti One")
+export const getNewsAndArticles = createAsyncThunk("getNewsAndArticles" , (arg, thunkAPI) => {
    return axios.get(`${BaseUrl}articles`)
     .then( (res) => {
        //console.log("from redux",res.data , res.status)
@@ -29,7 +27,7 @@ export const getNewsAndArticles = createAsyncThunk("getNewsAndArticles" , ({}, t
             return thunkAPI.rejectWithValue(error.error)
         }
         else {
-            const msgErr = t("errorInGet")
+            const msgErr = ""
             return  thunkAPI.rejectWithValue(msgErr)
         }
     })
@@ -37,8 +35,8 @@ export const getNewsAndArticles = createAsyncThunk("getNewsAndArticles" , ({}, t
 // END READ ACTION
 
 // READ CATEGORIES
-export const getCategories = createAsyncThunk("getCategories" , ({},thunkAPI) => {
-    const { t } = useTranslation();
+export const getCategories = createAsyncThunk("getCategories" , (arg,thunkAPI) => {
+    
     return axios.get(`${BaseUrl}categories`)
     .then( (res) => res.data)
     .catch( (error) => {
@@ -46,7 +44,7 @@ export const getCategories = createAsyncThunk("getCategories" , ({},thunkAPI) =>
             return thunkAPI.rejectWithValue(error.error)
         }
         else {
-            const msgErr = t("errorInGet2")
+            const msgErr = ""
             return  thunkAPI.rejectWithValue(msgErr)
         }
     })
@@ -83,7 +81,6 @@ const newsAndArticles = createSlice({
             state.loadingCategories = false;
             state.statusCategories = "failed";
             state.errorCategories = action.payload;
-           console.log("from slice categor" , action)
         })
     }
 });

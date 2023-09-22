@@ -15,8 +15,7 @@ const initialState = {
 // }
 //'Content-Type': 'application/json',
 // READ REAL ESTATE
-export const getRealEstates = createAsyncThunk("getRealEstates" , async ({}, thunkAPI) => {
-    const { t } = useTranslation();
+export const getRealEstates = createAsyncThunk("getRealEstates" , async (arg, thunkAPI) => {
     // try{
     // const response = await fetch(`${BaseUrl}real_estate`)
     // const data = await response.data;
@@ -37,7 +36,7 @@ export const getRealEstates = createAsyncThunk("getRealEstates" , async ({}, thu
             return thunkAPI.rejectWithValue(error.error)
         }
         else {
-            const msgErr = t("errorInGet")
+            const msgErr = ""
             return  thunkAPI.rejectWithValue(msgErr)
         }
     })

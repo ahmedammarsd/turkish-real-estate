@@ -23,8 +23,10 @@ const RealEstates = ({inMain}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation()
-    const selectLang = useSelector( (state) => state.selectLang);
+    const selectLang = useSelector((state) => state.selectLang);
     const realEstates = useSelector((state) => state.realEstates);
+
+
     const [controlFormFilter , setControlFormFilter] = useState(false);
 
     useEffect(() => {
@@ -37,7 +39,7 @@ const RealEstates = ({inMain}) => {
     },[])
     const FromCardRealEstaeType = location.state?.FromCardRealEstaeType;
     const [isRent , setIsRent] = useState(true)
-    const [twon , setTown] = useState("");
+    const [twon , setTown] = useState(0);
     const [compound ,setCompound] = useState("");
     const [typeRealEstate , setTypeRealEstatet] = useState("");
     const [features , setFeatures] = useState(""); // NO WORDING NOW
@@ -45,16 +47,19 @@ const RealEstates = ({inMain}) => {
     const [minPrice , setMinPrice] = useState(0)
     const [maxPrice , setMaxPrice] = useState(0)
     const [minSpace , setMinSpace] = useState(0)
-    const [maxSpace , setMaxSpace] = useState(0)
+    const [maxSpace , setMaxSpace] = useState(0);
+    let offerType = isRent === true ? "ايجار" : "شراء";
     const realEstatesFilter = realEstates.realEstates[0]?.filter( (realEstate) => realEstate.is_archive === false && realEstate.is_available === true)
     /// ========== FILTER REAL ESTATE =================
-    const realEstateTwoChangeByFormFilter = realEstatesFilter?.filter( (real) => real[0]?.offer_type === (isRent === true ? "ايجار" : "شراء")
+    const realEstateTwoChangeByFormFilter = realEstatesFilter?.filter( (real) =>{ 
+      return real[0]?.offer_type === offerType
     || twon !== "" ? real.residential_compound?.town_id  == twon : null
     || compound !== "" ? real.residential_compound?.id == compound : null
     || typeRealEstate !== ""  ? real.type === typeRealEstate : null 
     || minPrice !== 0 && maxPrice !== 0 ? real.real_estate_contents[0]?.price > minPrice && real.real_estate_contents[0]?.price < maxPrice : null
     || minSpace !== 0 && maxSpace !== 0 ? real.real_estate_contents[0]?.space > minSpace && real.real_estate_contents[0]?.space < maxSpace : null
-    || FromCardRealEstaeType !== ""  ? real.type === FromCardRealEstaeType : null ,
+    || FromCardRealEstaeType !== ""  ? real.type === FromCardRealEstaeType : null 
+    }
     )
     // EXAMPLE FOR HOW TO DO FILTER FOR THE REAL ESTATE
     // const searchdExercises = exercisesData.filter(
@@ -211,6 +216,8 @@ const RealEstates = ({inMain}) => {
             </div>
             {/*========================================== */}
 
+           
+        </div>
              {/*========================================== */}
              {
               !inMain ?
@@ -226,8 +233,6 @@ const RealEstates = ({inMain}) => {
               : null // IF NOT IN MAIN HIDE PAGINATION
              }
               {/*========================================== */}
-           
-        </div>
       </div>
       </div>
     </div>

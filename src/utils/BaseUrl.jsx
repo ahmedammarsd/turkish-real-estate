@@ -17,7 +17,7 @@ export const handleResize  = (setScreenWidth) => {
 
 export const handleScroll  = (setScreenHeight) => {  
    addEventListener("scroll", () => {
-      setScreenHeight(window.innerWidth);
+      setScreenHeight(window.scrollY);
   });
 }
   

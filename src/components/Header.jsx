@@ -5,7 +5,7 @@ const Header = () => {
   const { t } = useTranslation();
   return (
     <div 
-     className=" tw-relative tw-w-full tw-h-[70vh] clipPath"
+     className=" tw-relative tw-w-full tw-h-[90vh] clipPath"
     >
         <div className="tw-bg-header tw-w-full tw-h-full tw-bg-cover md:tw-bg-center">
         

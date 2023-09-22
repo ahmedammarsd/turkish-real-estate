@@ -12,8 +12,7 @@ const initialState = {
 }
 
 // READ SERVICES 
-export const getServices = createAsyncThunk("getServices" , ({}, thunkAPI) => {
-    const { t } = useTranslation()
+export const getServices = createAsyncThunk("getServices" , (arg, thunkAPI) => {
     return axios.get(`${BaseUrl}services_sections` , {
         headers:{
             'Content-Type': 'application/json',
@@ -28,7 +27,7 @@ export const getServices = createAsyncThunk("getServices" , ({}, thunkAPI) => {
              return thunkAPI.rejectWithValue(error.error)
          }
          else {
-             const msgErr = t("errorInGet")
+             const msgErr = ""
              return  thunkAPI.rejectWithValue(msgErr)
          }
      })
