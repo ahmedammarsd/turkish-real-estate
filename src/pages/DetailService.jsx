@@ -1,10 +1,9 @@
-import React , {useEffect} from 'react'
+import React , {useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { linksNavbar } from '../Links-navbar/Links';
 import TitleHeader from '../components/shared/TitleHeader';
 import servicesImage from "../images/imagecompressor/header3.jpg";
-import { dummayDataServices } from '../Links-navbar/Links';
 import { useParams } from 'react-router-dom';
 import ServiceDetails from '../components/ServiceDetails';
 import { getServices } from '../features/ServicesSlice';
@@ -16,9 +15,10 @@ import imageNotFound from "../images/imagecompressor/Image_not_available.png";
 
 const DetailService = () => {
   const { t } = useTranslation();
-  const { id, nameServices, idService} = useParams(); 
+  const { id, nameServices, idService} = useParams();
+  const [servDetail , setServDetail] = useState(null) 
+  const [subServDetail , setSubServDetail] = useState(null)
   const dispatch = useDispatch();
-  const {service , desc , image} = dummayDataServices[id].sub_services[idService]
   const langCode = useSelector((state) => state.selectLang.currentLanguageCode);
   const servicesSlice = useSelector((state) => state.services);
   useEffect( () => {
@@ -27,14 +27,19 @@ const DetailService = () => {
   },[langCode]);
   useEffect(()=> {
     if (servicesSlice.services?.length === 0){
-    dispatch(getServices())
-    }
+    dispatch(getServices());
+    // GIT SERVICE BY FILTER ID
+  }
+  const mainService = servicesSlice.services[0]?.find( (mainServ) => mainServ?.id == id && mainServ?.is_available === true ) // FILTER MAIN SERVECES
+  if (mainService) {
+  const subService2 = mainService?.services?.find( (subServ) => subServ?.id == idService && subServ?.is_archive === false) // FILTER SUB SERVECES TO GET DETAIL
+  if (subService2){
+    setServDetail(mainService)
+    setSubServDetail(subService2)
+  }
+  }
   },[]);
 
-  // GIT SERVICE BY FILTER ID
-  const mainService = servicesSlice.services[0]?.filter( (mainServ) => mainServ?.id == id && mainServ?.is_available === true) // FILTER MAIN SERVECES
-  const subService = mainService?.services?.filter( (subServ) => subServ?.id == idService && subServ?.is_archive === false) // FILTER SUB SERVECES TO GET DETAIL
-  console.log(mainService)
   return (
     <div>
       <TitleHeader title={nameServices} bgImageSrc={servicesImage} />
@@ -45,17 +50,17 @@ const DetailService = () => {
             servicesSlice.loading ?
             <Loading />
             :
-            servicesSlice.status == "Fialed" ?
+            servicesSlice.status == "failed" ?
             <ErrorMsg msg={servicesSlice.error || t("errorInGet")} />
-            : subService?.length === 1 ?
+            : subServDetail !== null && servDetail !== null?
               <ServiceDetails
-              mainService={langCode === "en" ? mainService[0]?.en_title || "No Title" : mainService[0]?.ar_title || "لا يوجد عنوان"}
-              titleSub={langCode === "en" ? subService[0]?.en_title || "No Title" : subService[0]?.ar_title || "لا يوجد عنوان"}
-              descMain={langCode === "en" ? mainService[0]?.en_description || "Not add description" : mainService[0]?.ar_description || "لم يتم إضافة وصف"}
-              desc={langCode === "en" ? subService[0]?.en_description || "Not add description" : subService[0]?.ar_description || "لم يتم إضافة وصف"}
-              views={subService[0]?.view_count || 1300}
-              image={image !== "" ? BaseUrl+"file/"+image : imageNotFound}
-              body={langCode === "en" ? subService[0]?.en_body || "Not add description" : subService[0]?.ar_body || "لم يتم إضافة وصف"}
+              mainService={langCode === "en" ? servDetail.en_title || "No Title" : servDetail.ar_title || "لا يوجد عنوان"}
+              titleSub={langCode === "en" ? subServDetail?.en_title || "No Title" : subServDetail?.ar_title || "لا يوجد عنوان"}
+              descMain={langCode === "en" ? servDetail.en_description || "Not add description" : servDetail.ar_description || "لم يتم إضافة وصف"}
+              desc={langCode === "en" ? subServDetail?.en_description || "Not add description" : subServDetail?.ar_description || "لم يتم إضافة وصف"}
+              views={subServDetail?.view_count || 1300}
+              image={subServDetail?.image_url !== "" ? BaseUrl+"file/"+subServDetail?.image_url : imageNotFound}
+              body={langCode === "en" ? subServDetail?.en_body || "Not add description" : subServDetail?.ar_body || "لم يتم إضافة وصف"}
              />
             :
             <NoData />

@@ -23,10 +23,13 @@ const About = ({desc , features , realEstateContent}) => {
       </p>
       </div>
       <div className="tw-w-full">
-        <span className="tw-capitalize tw-bg-main-blue tw-text-white tw-rounded-sm tw-p-2 xs:tw-p-1.5 tw-px-4 xs:tw-px-2 tw-text-lg sm:tw-text-sm tw-font-semibold tw-whitespace-nowrap tw-inline-block tw-mb-4">{t("feature")}</span>
         {
-          features?.length !== 0 || features !== "" ?
-      <div className="tw-grid tw-grid-cols-3 lg:tw-grid-cols-2 sm:tw-grid-cols-1 tw-items-center tw-gap-3 tw-w-full">
+          features?.length === 0 || features === "" ?
+          null
+        : 
+        <>
+          <span className="tw-capitalize tw-bg-main-blue tw-text-white tw-rounded-sm tw-p-2 xs:tw-p-1.5 tw-px-4 xs:tw-px-2 tw-text-lg sm:tw-text-sm tw-font-semibold tw-whitespace-nowrap tw-inline-block tw-mb-4">{t("feature")}</span>
+         <div className="tw-grid tw-grid-cols-3 lg:tw-grid-cols-2 sm:tw-grid-cols-1 tw-items-center tw-gap-3 tw-w-full">
         {
           features?.map((feture , index) => (
             <Feature key={index} image={feture?.feature?.image_url === "" ? imageNotFound : feture?.feature?.image_url } 
@@ -36,7 +39,7 @@ const About = ({desc , features , realEstateContent}) => {
           ))
         }
         </div>
-        : null
+        </>
           
         }
       </div>

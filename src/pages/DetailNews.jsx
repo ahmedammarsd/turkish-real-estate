@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { dummayDataNews, linksNavbar } from "../Links-navbar/Links";
+import { linksNavbar } from "../Links-navbar/Links";
 import NewsDetails from "../components/NewsDetails";
 import TitleHeader from "../components/shared/TitleHeader";
 import newsImage from "../images/imagecompressor/header4.jpg";

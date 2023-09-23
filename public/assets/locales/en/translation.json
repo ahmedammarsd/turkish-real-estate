@@ -25,6 +25,24 @@
     "houses":"houses",
     "apartments":"apartments",
 
+    "land":"land",
+    "building":"building",
+    "villa":"villa",
+    "house":"house",
+    "apartment":"apartment",
+
+    
+    "cashAndInstallments":"Cash & installments",
+    "installments":"installments",
+    "cash":"cash",
+
+    "room":"room",
+    "rooms":"rooms",
+    "bath":"bath",
+    "hall":"hall",
+    "floor":"floor",
+    "typeDesing": "design type",
+
     "availableServices": "available services",
 
     "page404": "page not found",

@@ -37,9 +37,12 @@ const NewsDetails = ({image , date , title , category , desc , youtubeLink}) => 
                }
             </p>
           </div>
+          {
+            youtubeLink &&
           <div className='tw-w-full tw-h-[300px] sm:tw-h-[240px]'>
             <ReactPlayer url={youtubeLink} width={"100%"} height={"100%"}/>
           </div>
+          }
         </div>
     </div>
   )

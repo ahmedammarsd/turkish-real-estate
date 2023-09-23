@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect , useState } from "react";
 import ServiceSectionCard from "./shared/ServiceSectionCard";
 import { useTranslation } from "react-i18next";
-import imageTest from "../images/imagecompressor/img2.jpg";
 import TitleAndDesc from "./shared/TitleAndDesc";
-import { dummayDataServices , linksNavbar } from "../Links-navbar/Links";
+import {  linksNavbar } from "../Links-navbar/Links";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getServices } from "../features/ServicesSlice";
@@ -12,6 +11,7 @@ import ErrorMsg from "./shared/ErrorMsg";
 import NoData from "./shared/NoData";
 import { BaseUrl } from "../utils/BaseUrl";
 import imageNotFound from "../images/imagecompressor/Image_not_available.png";
+import Pagination from "./Pagination";
 
 const ServicesSection = ({inMain}) => {
   const { t } = useTranslation();
@@ -29,6 +29,23 @@ const ServicesSection = ({inMain}) => {
 
   //FILTER SERVICES - CHECK SERVICES IS AVAILABLE
   const servicesAvailable = services.services[0]?.filter( (service) => service.is_available === true)
+
+  // PAGINATION
+  const [currentPage, setCurrentPage] = useState(1);
+  const [servicesInPage] = useState(6);
+
+  // GET CURRENT NEWS
+  const indexOfLastPage = currentPage * servicesInPage;
+  const indexOfFirstNews = indexOfLastPage - servicesInPage;
+  const currentServices = servicesAvailable?.slice(
+    indexOfFirstNews,
+    indexOfLastPage
+  );
+
+  // CHANGE PAGE
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  // END PAGINATION
+
   return (
     <div className="tw-py-16 tw-relative tw-flex tw-justify-center tw-items-center">
       <div className="tw-w-full">
@@ -54,7 +71,7 @@ const ServicesSection = ({inMain}) => {
           <NoData />
           :
           // VIEW THE MAIN SERVICES AFTER ALL CONDTIONS
-          <div className="tw-grid tw-grid-cols-3 md:tw-grid-cols-2 sm:tw-grid-cols-1 tw-items-center tw-gap-1 sm:tw-gap-3 tw-mt-3">
+          <div className="tw-grid tw-grid-cols-3 md:tw-grid-cols-2 sm:tw-grid-cols-1 tw-items-center tw-gap-4 tw-mt-3">
           {
            servicesAvailable?.map( ({id ,en_title , ar_title , en_description , ar_description , icon_url , services} , index) => (
 
@@ -82,7 +99,22 @@ const ServicesSection = ({inMain}) => {
              ))
             }
             </div>
+            
          }
+          {/*============================================= */}
+          {!inMain ? (
+            // !dataNews.loading &&
+             services.status !== "failed" ? (
+              <div className=" tw-w-full tw-flex tw-justify-center tw-items-center tw-mt-7">
+                <Pagination
+                  InPage={servicesInPage}
+                  total={currentServices?.length}
+                  paginate={paginate}
+                />
+              </div>
+            ) : null
+          ) : null}
+          {/*============================================= */}
          </div>
          {/*======== END MAIN SERVICES ============== */}
          {/*=========================================== */}

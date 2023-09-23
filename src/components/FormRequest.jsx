@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/semantic-ui.css"
@@ -104,9 +104,14 @@ const FormRequest = () => {
 
     if (nameUser !== "" && phoneNumber !== "" && email !== "" && !showMsgErrNameUser && !showMsgErrPhone && !showMsgErrEmail){
       dispatch(addRequest(dataForm))
-      setTimeout(() => navigate("/") , 4000)
     }
   }
+  useEffect(() => {
+    if (request.status === "success"){
+      setTimeout(() => navigate("/") , 4000)
+      setTimeout(() => dispatch(tryAgain()) , 5000)
+      }
+  },[request.status])
   // =================
   // END FORM
   const styleSelect =
@@ -121,11 +126,11 @@ const FormRequest = () => {
           {
             request.status === "success" //&& request.statusReq == 201 
             ?
-            <SuccessMsg msg={t("successAdd")}/>
+            <SuccessMsg msg={t("successAdd")} isWhite={true}/>
             : request.status === "failed"  ?
             <>
-            <ErrorMsg msg={t("erroInAdd")} />
-            <button className=" tw-w-full tw-text-white tw-bg-main-blue tw-py-3 tw-rounded-sm hover:tw-bg-blue-700 tw-capitalize" 
+            <ErrorMsg msg={t("erroInAdd")} isWhite={true} />
+            <button className=" tw-w-full tw-text-white tw-bg-main-blue tw-py-3 tw-rounded-sm hover:tw-bg-blue-700 tw-capitalize tw-mt-5" 
             onClick={() => dispatch(tryAgain())}
             >{t("tryAgain")}</button>
             </>

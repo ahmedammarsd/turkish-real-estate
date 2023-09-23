@@ -8,7 +8,7 @@ const Lable = ({ labelInput }) => (
   </label>
 );
 
-const FormFilterRealEstate = ({isRent , setIsRent , setTown , setCompound , setTypeReal , setFeture , setPriceMin , setPriceMax , setSpaceMin , setSpaceMax}) => {
+const FormFilterRealEstate = ({isRent , setIsRent , setTown , setCompound , setTypeReal , typeRealEstate , setPriceMin , setPriceMax , setSpaceMin , setSpaceMax , minPrice , maxPrice , minSpace , maxSpace}) => {
   const { t } = useTranslation();
   const realEstates = useSelector((state) => state.realEstates);
   const langCode = useSelector((state) => state.selectLang.currentLanguageCode);
@@ -43,7 +43,7 @@ const FormFilterRealEstate = ({isRent , setIsRent , setTown , setCompound , setT
   // PRICE STATE AND VALIDATION
   const [price, setPrice] = useState({
     min: 0,
-    max: 0,
+    max: maxPrice,
   });
   const [minPriceValid , setMinPriceValid] = useState(true)
   const [maxPriceValid , setMaxPriceValid] = useState(true)
@@ -72,7 +72,7 @@ const FormFilterRealEstate = ({isRent , setIsRent , setTown , setCompound , setT
 // SPACE STATE AND VALIDATION
 const [space, setSpace] = useState({
   min: 0,
-  max: 0,
+  max: maxSpace,
 });
 const [minSpaceValid , setMinSpaceValid] = useState(true)
 const [maxSpaceValid , setMaxSpaceValid] = useState(true)
@@ -102,9 +102,6 @@ const checkSpace = (min , max) => {
 // END PRICE STATE AND VALIDATION
 //let array = [1,2,3,2,4,3, 1]
 //let filterArray = [...new Set(array)] // filter the dublicate
-  useEffect(() => {
-  
-  }, [price]);
   return (
     <div>
         <div className="md:tw-mt-10">
@@ -176,6 +173,7 @@ const checkSpace = (min , max) => {
                  <span className=" tw-p-1.5 tw-bg-transparent-white9 tw-rounded-sm tw-text-red-500 tw-w-full tw-text-center tw-text-sm xs:tw-text-xs">{realEstates.errorStates || t("errorInGet")} {t("typeReal")}</span>
                  :
                  <select className={styleSelect} 
+                 value={typeRealEstate}
                  onChange={(e) => setTypeReal(e.target.value)}
                  >
                    <option value="">{t("all")}</option>
@@ -222,7 +220,7 @@ const checkSpace = (min , max) => {
                   <Lable labelInput={t("min")} />
                     <input
                       type="number"
-                      max={5000}
+                      max={10000}
                       min={0}
                       placeholder={t("min")}
                       name="fromPrice"
@@ -241,7 +239,7 @@ const checkSpace = (min , max) => {
                   <Lable labelInput={t("max")} />
                     <input
                       type="number"
-                      max={4000}
+                      max={10000}
                       min={0}
                       placeholder={t("max")}
                       name="ToPrice"
@@ -272,7 +270,7 @@ const checkSpace = (min , max) => {
                   <Lable labelInput={t("min")} />
                     <input
                       type="number"
-                      max="5000"
+                      max="10000"
                       min="0"
                       placeholder={t("min")}
                       name="fromPrice"
@@ -290,7 +288,7 @@ const checkSpace = (min , max) => {
                   <Lable labelInput={t("max")} />
                     <input
                       type="number"
-                      max="5000"
+                      max="10000"
                       min="0"
                       placeholder={t("max")}
                       name="ToPrice"

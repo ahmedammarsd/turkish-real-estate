@@ -17,7 +17,7 @@ const NearestTourist = ({ image, title, distance }) => {
       <div className="tw-absolute tw-top-0 tw-right-0 tw-bg-transparent-black4 -tw-z-1 tw-w-full tw-h-full tw-duration-500" />
       <div className="tw-flex tw-justify-between tw-items-center tw-text-white tw-w-full tw-text-xl sm:tw-text-lg xs:tw-text-sm">
         <span className="tw-capitalize tw-font-semibold">{title}</span>
-        <span className="tw-flex tw-items-center tw-gap-1">
+        <span className="tw-flex tw-items-center tw-gap-2">
           <span><ImLocation2 /></span>
           <span>{distance} KM</span>
         </span>

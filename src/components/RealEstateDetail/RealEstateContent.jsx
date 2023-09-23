@@ -35,13 +35,13 @@ const RealEstateContent = ({content}) => {
     <div className="tw-w-full tw-mt-5 tw-p-1 tw-overflow-y-auto realContent">
         {/* HEADING */}
         <div className="tw-grid tw-items-center tw-grid-cols-7 tw-w-full md:tw-w-[740px] xs:tw-w-[490px] tw-border-b tw-border-main-blue">
-            <Heading icon={<FaBed />} head={"rooms"} />
-            <Heading icon={<PiArmchairFill />} head={"Halls"} />
-            <Heading icon={<FaBath />} head={"Bath"} />
-            <Heading icon={<BiArea />} head={"Space"} />
-            <Heading icon={<MdOutlineHomeWork />} head={"type"} />
-            <Heading icon={<PiStepsFill />} head={"floor"} />
-            <Heading icon={<MdOutlinePriceChange />} head={"pirce"} />
+            <Heading icon={<FaBed />} head={t("rooms")} />
+            <Heading icon={<PiArmchairFill />} head={t("halls")} />
+            <Heading icon={<FaBath />} head={t("bath")} />
+            <Heading icon={<BiArea />} head={t("space")} />
+            <Heading icon={<MdOutlineHomeWork />} head={t("typeDesign")} />
+            <Heading icon={<PiStepsFill />} head={t("floor")} />
+            <Heading icon={<MdOutlinePriceChange />} head={t("price")} />
         </div>
         {/* HEADING */}
          {/*Real Content */}
@@ -61,7 +61,7 @@ const RealEstateContent = ({content}) => {
                  <Detail  detail={contentO?.space}/>
                  <Detail  detail={contentO?.type}/>
                  <Detail  detail={contentO?.floor_no}/>
-                 <Detail  detail={contentO?.price}/>
+                 <Detail  detail={"$ " + contentO?.price}/>
                 </div>
              ))
            }

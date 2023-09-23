@@ -5,12 +5,11 @@ import SelectLang from "./SelectLang";
 import { AiOutlineMenu } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
 import Links from "./shared/Links";
-import { linksNavbar , subLinks } from "../Links-navbar/Links";
+import { linksNavbar  } from "../Links-navbar/Links";
 import { useDispatch, useSelector } from "react-redux";
-import { getScrollY , getScreenWidth } from "../features/screenSlice";
-import ErrorMsg from "./shared/ErrorMsg";
 import { handleResize, handleScroll } from "../utils/BaseUrl";
 import { useNavigate } from "react-router-dom";
+import LinksWithSubLinks from "./shared/LinksWithSubLinks";
 
 const Navbar = () => {
   const [showNav, setShowNav] = useState(false);
@@ -85,16 +84,18 @@ const Navbar = () => {
 
               <Links to={"/"} name={t(linksNavbar[0].name)} isLink1={true} customFunc={() => setShowNav(false)}/>
               <Links to={linksNavbar[1].to} name={t(linksNavbar[1].name)} customFunc={() => setShowNav(false)}/>
-              <Links to={linksNavbar[2].to} name={t(linksNavbar[2].name)} customFunc={() => setShowNav(false)} 
+              <LinksWithSubLinks to={linksNavbar[2].to} name={t(linksNavbar[2].name)} customFunc={() => setShowNav(false)} 
                hasSupLinks={true} supLinksData={
                 servicesSlice.loading ? 
                  "loading"
                  :
-                 servicesSlice.status !== "failed" ?
+                 servicesSlice.status === "failed" ?
                  "failed"
                  :
-                servicesSlice.services[0]?.length != 0 
-                ? servicesSlice.services[0]
+                 servicesSlice.services?.length != 0 ?
+                servicesSlice.services[0]?.length === 0 
+                ? "noServices"
+                : servicesSlice.services[0].filter((serv) => serv.is_available === true)
                 : "noServices"
                }
               />

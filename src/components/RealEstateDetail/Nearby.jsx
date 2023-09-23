@@ -17,12 +17,12 @@ const Nearby = ({nearTourist ,  latitude , longitude}) => {
     dist = dist * 60 * 1.1515
     if (unit=="K") { dist = dist * 1.609344 }
     if (unit=="M") { dist = dist * 0.8684 }
-    return dist
+    return Math.round(dist)
 }
   return (
     <div>
       {
-        nearTourist?.length === 0 || nearTourist !== "" ?
+        nearTourist?.length === 0 || nearTourist === "" ?
         <NoData />
         :
     <div className="tw-grid tw-grid-cols-3 lg:tw-grid-cols-2 sm:tw-grid-cols-1 tw-items-center tw-gap-3">

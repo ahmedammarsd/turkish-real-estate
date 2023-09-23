@@ -21,13 +21,15 @@ const initialState = {
     })
     .then( (res) => res.status)
     .catch( (err) => {
-        if (err.status === 500){
-            return thunkAPI.rejectWithValue(err.error)
-        }
-        else {
-            const msgErr = ""
-            return  thunkAPI.rejectWithValue(msgErr)
-        }
+        //console.log(err)
+        return ""
+        // if (err.status === 500){
+        //     return thunkAPI.rejectWithValue(err.error)
+        // }
+        // else {
+        //     const msgErr = ""
+        //     return  thunkAPI.rejectWithValue(msgErr)
+        // }
     })
  })
 // END CREATE OR ADD FORM

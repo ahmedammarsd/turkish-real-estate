@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import TitleAndDesc from "./shared/TitleAndDesc";
 import { useTranslation } from "react-i18next";
 import CardNews from "./shared/CardNews";
-import testImage from "../images/imagecompressor/img10.jpg";
-import { dummayDataNews, linksNavbar } from "../Links-navbar/Links";
+import { linksNavbar } from "../Links-navbar/Links";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCategories,

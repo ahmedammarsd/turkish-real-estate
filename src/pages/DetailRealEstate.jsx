@@ -10,7 +10,6 @@ import { useParams } from "react-router-dom";
 import Loading from "../components/shared/Loading";
 import ErrorMsg from "../components/shared/ErrorMsg";
 import NoData from "../components/shared/NoData";
-import imageNotFound from "../images/imagecompressor/Image_not_available.png";
 
 const DetailRealEstate = () => {
   const { t } = useTranslation();
@@ -40,8 +39,8 @@ const DetailRealEstate = () => {
               : detailRealEstate?.length === 1 ?
               <RealEstateDetail
               title={langCode === "en" ? detailRealEstate[0]?.en_title || t("notSpecify") : detailRealEstate[0]?.ar_title || t("notSpecify")}
-              image={detailRealEstate[0]?.image_url === "" ? imageNotFound : detailRealEstate[0]?.image_url }
-              images={detailRealEstate[0]?.real_estate_images?.length === 0 ? "" : detailRealEstate[0]?.real_estate_images}
+              image={detailRealEstate[0]?.image_url}
+              images={detailRealEstate[0]?.real_estate_images}
               town={detailRealEstate[0]?.residential_compound?.state?.city || t("notSpecify")}
               townDirection={detailRealEstate[0]?.residential_compound?.town_diraction || t("notSpecify")}
               address={langCode === "en" ? detailRealEstate[0]?.residential_compound?.en_address || t("notSpecify") : detailRealEstate[0]?.residential_compound?.ar_address || t("notSpecify")}

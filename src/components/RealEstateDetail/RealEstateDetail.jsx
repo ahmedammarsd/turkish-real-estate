@@ -30,6 +30,7 @@ import 'swiper/css/navigation';
 
 // import required modules
 import { Pagination, Navigation } from 'swiper/modules';
+import { BaseUrl } from "../../utils/BaseUrl";
 
 //=============================================================
 const InfoRealEstate = ({ icon, title }) => {
@@ -114,18 +115,18 @@ const RealEstateDetail = ({
         className="mySwiper"
       >
         <SwiperSlide>
-        <img src={image} className="tw-w-full tw-h-full tw-object-cover" />
+        <img src={image === "" ? imageNotFound : BaseUrl+"file/"+image } className="tw-w-full tw-h-full tw-object-cover" />
         </SwiperSlide>
         {
           images?.map((im,index) => (
             <SwiperSlide key={index}>
-              <img src={im?.image_url === "" ? imageNotFound : im?.image_url} />
+              <img src={im?.image_url === "" ? imageNotFound : BaseUrl+"file/"+im?.image_url} />
             </SwiperSlide>
           ))
         }
       </Swiper>
       : 
-      <img src={image} className="tw-w-full tw-h-full tw-object-cover" />
+      <img src={BaseUrl+"file/"+image} className="tw-w-full tw-h-full tw-object-cover" />
         }
         
       </div>
@@ -185,15 +186,27 @@ const RealEstateDetail = ({
 
         {/*Info Real Estate */}
         <div className="tw-grid tw-grid-cols-3 tw-items-center tw-w-full">
-          <InfoRealEstate icon={<MdOutlineVilla />} title={typeReal} />
-          <InfoRealEstate icon={<LiaFileContractSolid />} title={offerType} />
-          <InfoRealEstate icon={<CiMoneyBill />} title={typePayment} />
+          <InfoRealEstate icon={<MdOutlineVilla />} title={
+                        typeReal === "منزل" ? t("house")
+                        : typeReal === "شقة" ? t("apartment") 
+                        : typeReal === "فيلا" ? t("villa") 
+                        : typeReal === "مبنى" ? t("building")
+                        : typeReal === "ارض" ? t("land")
+                        : typeReal === "تجاري" ? t("commercial")
+                        : t("residential")
+                        } />
+          <InfoRealEstate icon={<LiaFileContractSolid />} title={offerType === "ايجار" ? t("rent") : t("buy")} />
+          <InfoRealEstate icon={<CiMoneyBill />} title={
+            typePayment === "نقد و تقسيط" ? t("cashAndInstallments") 
+            :  typePayment === "نقد" ? t("cash") 
+            : t("installments")
+          } />
         </div>
         {/*End Info Real Estate */}
 
         {/*Main Control Info Real Estate */}
-        <div className="tw-w-full">
-          <div className="tw-grid tw-grid-cols-4 tw-items-center tw-w-full">
+        <div className="tw-w-full tw-h-auto">
+          <div className="tw-grid tw-grid-cols-4 tw-items-center tw-w-full tw-h-auto">
             <MainInfoRealEstate
               icon={<AiFillCheckCircle />}
               title={t("about")}
@@ -238,4 +251,3 @@ const RealEstateDetail = ({
 
 export default RealEstateDetail;
 
-//https://www.linkedin.com/in/ahmed-ammar-0b4b95178/

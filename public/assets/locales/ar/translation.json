@@ -26,6 +26,23 @@
     "houses":"منازل",
     "apartments":"شقق سكنية",
 
+    "land":"ارض",
+    "building":"مبنى",
+    "villa":"فيلا",
+    "house":"منزل",
+    "apartment":"شقة",
+
+    "cashAndInstallments": "نقد و تقسيط",
+    "installments":"تقسيط",
+    "cash":"نقد",
+
+    "room":"غرفة",
+    "rooms":"غرف",
+    "bath":"حمام",
+    "halls":"صالون",
+    "floor":"الطابق",
+    "typeDesing": "نوع التصميم",
+
     "availableServices": "الخدمات المتاحة",
 
     "page404" : "لم يتم العثور على الصفحة",
