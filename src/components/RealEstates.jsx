@@ -38,34 +38,36 @@ const RealEstates = ({ inMain }) => {
   const [isRent, setIsRent] = useState(true);
   const [twon, setTown] = useState("");
   const [compound, setCompound] = useState("");
-  const [typeRealEstate, setTypeRealEstatet] = useState("");
+  const [typeRealEstate, setTypeRealEstatet] = useState(location.state?.FromCardRealEstaeType != "" ? location.state?.FromCardRealEstaeType : "");
   const [features, setFeatures] = useState(""); // NO WORDING NOW
   const [typeDesign, setTypeDesign] = useState(""); // NO WORDING NOW
   const [minPrice, setMinPrice] = useState(1);
   const [maxPrice, setMaxPrice] = useState(2000);
   const [minSpace, setMinSpace] = useState(1);
   const [maxSpace, setMaxSpace] = useState(200);
-  let offerType = isRent  ? "شراء" : "ايجار";
+  let offerType = isRent  ?  "ايجار" : "شراء";
   const [realEstatesFilterr, setRealEstatesFilter] = useState([]);
   const [realEstatesFilterTwo, setRealEstatesFilterTwo] = useState([]);
 
   useEffect(() => {
-    location.state?.FromCardRealEstaeType && setTypeRealEstatet(location.state?.FromCardRealEstaeType);
+    //location.state?.FromCardRealEstaeType && setTypeRealEstatet(location.state?.FromCardRealEstaeType);
 
     const realEstatesFilter = realEstates.realEstates[0]?.filter(
       (realEstate) =>
         realEstate.is_archive === false && realEstate.is_available === true
     );
+    setRealEstatesFilter(realEstatesFilter); // IN MAIN PAGE
     /// ========== FILTER REAL ESTATE =================
     if (realEstatesFilter) {
       const realEstateTwoChangeByFormFilter = realEstatesFilter?.filter(
         (real) => {
-          return   real?.offer_type == offerType
-          || twon && real.residential_compound?.town_id === twon ||
-            compound && real.residential_compound?.id == compound ||
-            typeRealEstate != "" ? real.type === typeRealEstate : "" ||
-             (minPrice !== 0 && maxPrice !== 0) ? (real.real_estate_contents[0]?.price >= minPrice) && (real.real_estate_contents[0]?.price <= maxPrice): "" 
-          || (minSpace !== 0 && maxSpace !== 0)? (real.real_estate_contents[0]?.space >= minSpace) && (real.real_estate_contents[0]?.space <= maxSpace): ""
+          return  ( real?.offer_type == offerType)
+          && twon != "" ? real.residential_compound?.town_id == twon : real
+          && compound != "" ? real.residential_compound?.id == compound : real
+          && typeRealEstate != "" ?  real.type === typeRealEstate : real
+          && (minPrice !== 0 && maxPrice !== 0)? (real.real_estate_contents[0]?.price >= minPrice) && (real.real_estate_contents[0]?.price <= maxPrice): real
+          && (minSpace !== 0 && maxSpace !== 0)? (real.real_estate_contents[0]?.space >= minSpace) && (real.real_estate_contents[0]?.space <= maxSpace): real
+         // || real
         }
       );
       // .filter((real) => typeRealEstate != undefined ? real.type == typeRealEstate : true )
@@ -73,9 +75,8 @@ const RealEstates = ({ inMain }) => {
       // .filter((real) => compound !== "" ? real.residential_compound?.id == compound : true)
       // .filter((real) => minPrice != 0 && maxPrice != 0 ? real.real_estate_contents[0]?.price > minPrice && real.real_estate_contents[0]?.price < maxPrice : true)
       // .filter((real) => minSpace != 0 && maxSpace != 0 ? real.real_estate_contents[0]?.space > minSpace && real.real_estate_contents[0]?.space < maxSpace : true)
-      setRealEstatesFilter(realEstatesFilter);
-      setRealEstatesFilterTwo(realEstateTwoChangeByFormFilter);
-      // console.log(realEstateTwoChangeByFormFilter)
+      setRealEstatesFilterTwo(realEstateTwoChangeByFormFilter); // IN REAL ESTATE PAGE
+     // console.log(realEstateTwoChangeByFormFilter.sort((a,b) => a.id - b.id))
     }
   }, [twon , offerType , compound , typeRealEstate , minPrice , maxPrice , minSpace , maxSpace]);
 
@@ -253,7 +254,7 @@ const RealEstates = ({ inMain }) => {
                 ) : (
                   <div className=" tw-w-full">
                     <div className="tw-grid tw-w-full tw-grid-cols-2 lg:tw-grid-cols-2 sm:tw-grid-cols-1 tw-items-center tw-gap-4">
-                      {currentRealEstat?.map(
+                      {currentRealEstat?.sort((a,b) => a.id < b.id).map(
                         (
                           {
                             id,

@@ -7,7 +7,7 @@ const Header = () => {
     <div 
      className=" tw-relative tw-w-full tw-h-[90vh] clipPath"
     >
-        <div className="tw-bg-header tw-w-full tw-h-full tw-bg-cover md:tw-bg-center">
+        <div className="tw-bg-header tw-w-full tw-h-full tw-bg-cover md:tw-bg-center tw-bg-no-repeat">
         
         </div>
         <div className="tw-absolute tw-top-0 tw-left-0 tw-z-1 tw-bg-transparent-black5 tw-w-full tw-h-full">

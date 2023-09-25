@@ -239,7 +239,7 @@ const checkSpace = (min , max) => {
                   <Lable labelInput={t("max")} />
                     <input
                       type="number"
-                      max={10000}
+                      max={900000}
                       min={0}
                       placeholder={t("max")}
                       name="ToPrice"

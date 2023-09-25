@@ -138,7 +138,7 @@ const FormRequest = () => {
             :
             <div className="tw-flex tw-flex-col tw-items-start tw-gap-5 md:tw-gap-4">
             <div className="tw-w-full tw-flex tw-flex-col tw-items-start tw-gap-2">
-              <Lable labelInput={"name"} />
+              <Lable labelInput={t("nameUser")} />
               <input type="text" className={`${styleSelect} ${showMsgErrNameUser ? "tw-border-red-500" : null}`}
                  value={nameUser}
                  maxLength={30}
@@ -165,7 +165,8 @@ const FormRequest = () => {
               }
             </div>
             <div className="tw-w-full tw-flex tw-flex-col tw-items-start tw-gap-2">
-              <Lable labelInput={"phone"} />
+              <Lable labelInput={t("phone")} />
+              <div className=" tw-w-full" dir="ltr">
               <PhoneInput 
               inputStyle={{
                 background: "rgba(255,255,255,.6)",
@@ -201,6 +202,7 @@ const FormRequest = () => {
               }}
               
               />
+              </div>
               {/* <input type="number" className={styleSelect} /> */}
               {
                 showMsgErrPhone ?
@@ -212,7 +214,7 @@ const FormRequest = () => {
               }
             </div>
             <div className="tw-w-full tw-flex tw-flex-col tw-items-start tw-gap-2">
-              <Lable labelInput={"email"} />
+              <Lable labelInput={t("email")} />
               <input type="email" className={`${styleSelect} ${showMsgErrNameUser ? "tw-border-red-500" : null}`}
               value={email}
               placeholder="example@example.com"

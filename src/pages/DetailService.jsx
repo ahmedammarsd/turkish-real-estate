@@ -25,19 +25,21 @@ const DetailService = () => {
     window.scrollTo({top: 100, behavior: "smooth"})
     document.title = t(linksNavbar[2].name)
   },[langCode]);
-  useEffect(()=> {
+  useEffect( ()=> {
+    const initData = async () => {
     if (servicesSlice.services?.length === 0){
-    dispatch(getServices());
+    await dispatch(getServices());
     // GIT SERVICE BY FILTER ID
   }
-  const mainService = servicesSlice.services[0]?.find( (mainServ) => mainServ?.id == id && mainServ?.is_available === true ) // FILTER MAIN SERVECES
-  if (mainService) {
-  const subService2 = mainService?.services?.find( (subServ) => subServ?.id == idService && subServ?.is_archive === false) // FILTER SUB SERVECES TO GET DETAIL
-  if (subService2){
+  const mainService =  servicesSlice.services[0]?.find( (mainServ) => mainServ?.id == id && mainServ?.is_available === true ) // FILTER MAIN SERVECES
+  //if (mainService) {
+  const subService2 =  mainService?.services?.find( (subServ) => subServ?.id == idService && subServ?.is_archive === false) // FILTER SUB SERVECES TO GET DETAIL
+  
     setServDetail(mainService)
     setSubServDetail(subService2)
-  }
-  }
+  //}
+}
+initData()
   },[]);
 
   return (
@@ -52,11 +54,11 @@ const DetailService = () => {
             :
             servicesSlice.status == "failed" ?
             <ErrorMsg msg={servicesSlice.error || t("errorInGet")} />
-            : subServDetail !== null && servDetail !== null?
+            : subServDetail !== null && servDetail !== null ?
               <ServiceDetails
-              mainService={langCode === "en" ? servDetail.en_title || "No Title" : servDetail.ar_title || "لا يوجد عنوان"}
+              mainService={langCode === "en" ? servDetail?.en_title || "No Title" : servDetail?.ar_title || "لا يوجد عنوان"}
               titleSub={langCode === "en" ? subServDetail?.en_title || "No Title" : subServDetail?.ar_title || "لا يوجد عنوان"}
-              descMain={langCode === "en" ? servDetail.en_description || "Not add description" : servDetail.ar_description || "لم يتم إضافة وصف"}
+              descMain={langCode === "en" ? servDetail?.en_description || "Not add description" : servDetail?.ar_description || "لم يتم إضافة وصف"}
               desc={langCode === "en" ? subServDetail?.en_description || "Not add description" : subServDetail?.ar_description || "لم يتم إضافة وصف"}
               views={subServDetail?.view_count || 1300}
               image={subServDetail?.image_url !== "" ? BaseUrl+"file/"+subServDetail?.image_url : imageNotFound}

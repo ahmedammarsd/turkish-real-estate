@@ -66,6 +66,10 @@
     "descVirtual": "Sorry , not available now",
     "feature": "features",
 
+    "nameUser": "name",
+    "phone": "phone number",
+    "email": "email",
+
     "rent" : "rent",
     "buy": "buy",
     "twon":"town",

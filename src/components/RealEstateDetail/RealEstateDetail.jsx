@@ -29,7 +29,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 // import required modules
-import { Pagination, Navigation } from 'swiper/modules';
+import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import { BaseUrl } from "../../utils/BaseUrl";
 
 //=============================================================
@@ -103,16 +103,22 @@ const RealEstateDetail = ({
   }, []);
   return (
     <div>
-      <div className="tw-w-full tw-h-[500px]">
+      <div className="tw-w-full tw-h-[500px] sm:tw-h-[350px] tw-overflow-hidden">
         {
           images !== "" && images?.length != 0 ?
           <Swiper
+          dir="ltr"
         pagination={{
           type: 'progressbar',
         }}
+        autoplay={{
+          delay: 5000,
+        }}
+        loop={true}
+        speed={1500}
         navigation={true}
-        modules={[Pagination, Navigation]}
-        className="mySwiper"
+        modules={[Pagination, Navigation , Autoplay]}
+        className="mySwiper tw-w-full tw-h-full"
       >
         <SwiperSlide>
         <img src={image === "" ? imageNotFound : BaseUrl+"file/"+image } className="tw-w-full tw-h-full tw-object-cover" />
@@ -120,7 +126,7 @@ const RealEstateDetail = ({
         {
           images?.map((im,index) => (
             <SwiperSlide key={index}>
-              <img src={im?.image_url === "" ? imageNotFound : BaseUrl+"file/"+im?.image_url} />
+              <img src={im?.image_url === "" ? imageNotFound : BaseUrl+"file/"+im?.image_url}  className=" tw-w-full tw-h-full tw-object-cover"/>
             </SwiperSlide>
           ))
         }
@@ -149,8 +155,10 @@ const RealEstateDetail = ({
          <FormRequest />
        </div>
          }
-          {/*form Request */}
-      <div className="tw-flex tw-items-start tw-flex-col tw-gap-5 sm:tw-gap-3 tw-p-4 tw-py-5">
+          {/*end form Request */}
+
+          {/* start detail */}
+      <div className="tw-flex tw-items-start tw-flex-col tw-gap-5 sm:tw-gap-3 tw-p-2 tw-py-5">
         {/*address and stars */}
         <div className="tw-flex tw-flex-col tw-items-start tw-gap-2">
           <span className="tw-font-bold tw-text-xl sm:tw-text-lg tw-capitalize tw-whitespace-nowrap tw-text-main-blue">
@@ -232,7 +240,7 @@ const RealEstateDetail = ({
               active={isClicked.project}
             />
           </div>
-          <div className="tw-w-full tw-relative tw-overflow-hidden tw-min-h-[500px] tw-mt-3">
+          <div className="tw-w-full tw-relative tw-overflow-hidden tw-h-full tw-mt-3">
             {isClicked.about && <About 
             desc={desc}
             features={features || ""}
