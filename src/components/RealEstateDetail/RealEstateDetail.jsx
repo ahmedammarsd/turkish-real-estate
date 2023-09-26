@@ -161,10 +161,10 @@ const RealEstateDetail = ({
       <div className="tw-flex tw-items-start tw-flex-col tw-gap-5 sm:tw-gap-3 tw-p-2 tw-py-5">
         {/*address and stars */}
         <div className="tw-flex tw-flex-col tw-items-start tw-gap-2">
-          <span className="tw-font-bold tw-text-xl sm:tw-text-lg tw-capitalize tw-whitespace-nowrap tw-text-main-blue">
+          <span className="tw-font-bold tw-text-xl sm:tw-text-lg tw-capitalize tw-text-main-blue">
             {title}
           </span>
-          <span className="tw-font-semibold tw-text-lg sm:tw-text-sm tw-capitalize tw-whitespace-nowrap tw-text-gray-400">
+          <span className="tw-font-semibold tw-text-lg sm:tw-text-sm tw-capitalizes tw-text-gray-400">
             {town}, {townDirection} / {address}
           </span>
           <div className=" tw-flex tw-items-center tw-gap-1">

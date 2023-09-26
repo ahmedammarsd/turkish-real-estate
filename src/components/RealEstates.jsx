@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import TitleAndDesc from "./shared/TitleAndDesc";
 import { useTranslation } from "react-i18next";
 import CardRealEstate from "./shared/CardRealEstate";
-import testImage from "../images/imagecompressor/img5.jpg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { linksNavbar } from "../Links-navbar/Links";
 import FormFilterRealEstate from "./FormFilterRealEstate";
@@ -16,7 +15,7 @@ import NoData from "./shared/NoData";
 import imageNotFound from "../images/imagecompressor/Image_not_available.png";
 import { BaseUrl } from "../utils/BaseUrl";
 import Pagination from "./Pagination";
-import axios from "axios";
+
 
 const RealEstates = ({ inMain }) => {
   const { t } = useTranslation();
@@ -29,56 +28,58 @@ const RealEstates = ({ inMain }) => {
   const [controlFormFilter, setControlFormFilter] = useState(false);
 
   useEffect(() => {
-    if (realEstates.realEstates?.length === 0) {
-      dispatch(getRealEstates());
-    }
-    //setTypeRealEstatet(location.state?.FromCardRealEstaeType)
+   
   }, [realEstates.realEstates[0]?.length]);
 
   const [isRent, setIsRent] = useState(true);
-  const [twon, setTown] = useState("");
-  const [compound, setCompound] = useState("");
-  const [typeRealEstate, setTypeRealEstatet] = useState(location.state?.FromCardRealEstaeType != "" ? location.state?.FromCardRealEstaeType : "");
-  const [features, setFeatures] = useState(""); // NO WORDING NOW
-  const [typeDesign, setTypeDesign] = useState(""); // NO WORDING NOW
+  const [twon, setTown] = useState("none");
+  const [compound, setCompound] = useState("none");
+  const [typeRealEstate, setTypeRealEstatet] = useState(location.state?.FromCardRealEstaeType != undefined ? location.state?.FromCardRealEstaeType : "none");
+  //const [features, setFeatures] = useState(""); // NO WORDING NOW
+  //const [typeDesign, setTypeDesign] = useState(""); // NO WORDING NOW
   const [minPrice, setMinPrice] = useState(1);
-  const [maxPrice, setMaxPrice] = useState(2000);
+  const [maxPrice, setMaxPrice] = useState(5000);
   const [minSpace, setMinSpace] = useState(1);
-  const [maxSpace, setMaxSpace] = useState(200);
+  const [maxSpace, setMaxSpace] = useState(500);
   let offerType = isRent  ?  "ايجار" : "شراء";
   const [realEstatesFilterr, setRealEstatesFilter] = useState([]);
   const [realEstatesFilterTwo, setRealEstatesFilterTwo] = useState([]);
 
   useEffect(() => {
-    //location.state?.FromCardRealEstaeType && setTypeRealEstatet(location.state?.FromCardRealEstaeType);
-
-    const realEstatesFilter = realEstates.realEstates[0]?.filter(
-      (realEstate) =>
-        realEstate.is_archive === false && realEstate.is_available === true
-    );
-    setRealEstatesFilter(realEstatesFilter); // IN MAIN PAGE
-    /// ========== FILTER REAL ESTATE =================
-    if (realEstatesFilter) {
-      const realEstateTwoChangeByFormFilter = realEstatesFilter?.filter(
-        (real) => {
-          return  ( real?.offer_type == offerType)
-          && twon != "" ? real.residential_compound?.town_id == twon : real
-          && compound != "" ? real.residential_compound?.id == compound : real
-          && typeRealEstate != "" ?  real.type === typeRealEstate : real
-          && (minPrice !== 0 && maxPrice !== 0)? (real.real_estate_contents[0]?.price >= minPrice) && (real.real_estate_contents[0]?.price <= maxPrice): real
-          && (minSpace !== 0 && maxSpace !== 0)? (real.real_estate_contents[0]?.space >= minSpace) && (real.real_estate_contents[0]?.space <= maxSpace): real
-         // || real
-        }
-      );
-      // .filter((real) => typeRealEstate != undefined ? real.type == typeRealEstate : true )
-      // .filter((real) =>  twon != "" ? real.residential_compound?.town_id == twon :  true)
-      // .filter((real) => compound !== "" ? real.residential_compound?.id == compound : true)
-      // .filter((real) => minPrice != 0 && maxPrice != 0 ? real.real_estate_contents[0]?.price > minPrice && real.real_estate_contents[0]?.price < maxPrice : true)
-      // .filter((real) => minSpace != 0 && maxSpace != 0 ? real.real_estate_contents[0]?.space > minSpace && real.real_estate_contents[0]?.space < maxSpace : true)
-      setRealEstatesFilterTwo(realEstateTwoChangeByFormFilter); // IN REAL ESTATE PAGE
-     // console.log(realEstateTwoChangeByFormFilter.sort((a,b) => a.id - b.id))
+    if (realEstates.realEstates?.length === 0) {
+      dispatch(getRealEstates());
     }
-  }, [twon , offerType , compound , typeRealEstate , minPrice , maxPrice , minSpace , maxSpace]);
+      const realEstatesFilter = realEstates.realEstates[0]?.filter((realEstate) => realEstate.is_archive === false && realEstate.is_available === true);
+      setRealEstatesFilter(realEstatesFilter); // IN MAIN PAGE
+  },[realEstates.realEstates[0]?.length])
+
+
+  useEffect(() => {
+    //location.state?.FromCardRealEstaeType && setTypeRealEstatet(location.state?.FromCardRealEstaeType);
+   
+      
+    /// ========== FILTER REAL ESTATE =================
+  //  if (realEstatesFilter) {
+      // const realEstateTwoChangeByFormFilter = realEstatesFilterr?.filter((real) =>  real?.offer_type == offerType
+      //        && twon !== "none" ? real.residential_compound?.town_id == twon : null
+      //        && compound != "none" ? real.residential_compound?.id == compound : real
+      //        && typeRealEstate != "none" ?  real.type == typeRealEstate : null
+      //        && (minPrice !== 0 && maxPrice !== 0) ? (real.real_estate_contents?.some((content) => content?.price >= minPrice)) && (real.real_estate_contents?.some((content) => content?.price <= maxPrice)): ""
+      //        && (minSpace !== 0 && maxSpace !== 0) ? (real.real_estate_contents?.some((content) => content?.space >= minSpace)) && (real.real_estate_contents?.some((content) => content?.space <= maxSpace)): ""
+      // );
+      const realEstateTwoChangeByFormFilter = realEstatesFilterr?.filter((real) => real?.offer_type == offerType )
+      .filter((real) =>  twon != "none" ? real.residential_compound?.town_id == twon :  real)
+      .filter((real) => compound !== "none" ? real.residential_compound?.id == compound : real)
+      .filter((real) => typeRealEstate != "none" ?  real.type == typeRealEstate : real)
+      .filter((real) => (minPrice !== 0 && maxPrice !== 0) ? (real.real_estate_contents?.some((content) => content?.price >= minPrice)) && (real.real_estate_contents?.some((content) => content?.price <= maxPrice)): real)
+      .filter((real) => (minSpace !== 0 && maxSpace !== 0) ? (real.real_estate_contents?.some((content) => content?.space >= minSpace)) && (real.real_estate_contents?.some((content) => content?.space <= maxSpace)): real)
+      // console.log(realEstateTwoChangeByFormFilter.sort((a,b) => a.id - b.id))
+      setRealEstatesFilterTwo(realEstateTwoChangeByFormFilter); // IN REAL ESTATE PAGE
+   // }
+  // }
+ 
+  }, [ realEstatesFilterr,twon ,offerType , compound , typeRealEstate , minPrice , maxPrice , minSpace , maxSpace]);
+
 
   //====== PAGINATION ======
   const [currentPage, setCurrentPage] = useState(1);
@@ -148,6 +149,7 @@ const RealEstates = ({ inMain }) => {
                     </span>
                     {/* FORM FILTER */}
                     <FormFilterRealEstate
+                    twon={twon}
                       setTown={setTown}
                       setCompound={setCompound}
                       typeRealEstate={typeRealEstate}
@@ -249,9 +251,12 @@ const RealEstates = ({ inMain }) => {
                     </div>
                   )
                 ) : // ==== IN REAL ESTATE PAGE ======= CAN USE FORM FILTER HERE AND DATA CHANGE
-                realEstatesFilterTwo?.length === 0 ? (
+                realEstatesFilterTwo?.length === 0 ? 
+                 (
                   <NoData />
-                ) : (
+                )
+                :
+                (
                   <div className=" tw-w-full">
                     <div className="tw-grid tw-w-full tw-grid-cols-2 lg:tw-grid-cols-2 sm:tw-grid-cols-1 tw-items-center tw-gap-4">
                       {currentRealEstat?.sort((a,b) => a.id < b.id).map(
@@ -327,7 +332,7 @@ const RealEstates = ({ inMain }) => {
                     }
                     {/*========================================== */}
                   </div>
-                )
+                ) 
                 // =========== END HANDLE REAL ESTATES ================
               }
             </div>

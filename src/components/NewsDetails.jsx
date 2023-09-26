@@ -19,7 +19,7 @@ const NewsDetails = ({image , date , title , category , desc , youtubeLink}) => 
           </div>
           </div>
           <div>
-            <span className="tw-font-bold tw-text-xl sm:tw-text-lg tw-capitalize tw-whitespace-nowrap tw-text-main-blue">
+            <span className="tw-font-bold tw-text-xl sm:tw-text-lg tw-capitalize tw-text-main-blue">
               {title}
             </span>
           </div>

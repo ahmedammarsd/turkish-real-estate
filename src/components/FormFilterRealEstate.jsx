@@ -8,7 +8,7 @@ const Lable = ({ labelInput }) => (
   </label>
 );
 
-const FormFilterRealEstate = ({isRent , setIsRent , setTown , setCompound , setTypeReal , typeRealEstate , setPriceMin , setPriceMax , setSpaceMin , setSpaceMax , minPrice , maxPrice , minSpace , maxSpace}) => {
+const FormFilterRealEstate = ({isRent , twon , setIsRent , setTown , setCompound , setTypeReal , typeRealEstate , setPriceMin , setPriceMax , setSpaceMin , setSpaceMax , minPrice , maxPrice , minSpace , maxSpace}) => {
   const { t } = useTranslation();
   const realEstates = useSelector((state) => state.realEstates);
   const langCode = useSelector((state) => state.selectLang.currentLanguageCode);
@@ -131,7 +131,7 @@ const checkSpace = (min , max) => {
                   <select className={styleSelect}
                   onChange={(e) => setTown(e.target.value)}
                  >
-                   <option value="">{t("all")}</option>
+                   <option value="none">{t("all")}</option>
                   {
                     removeDuplicateTwon?.map( (state , index) => (
                       <option key={index} value={state.town_id}>{state.state.city}</option>
@@ -152,10 +152,10 @@ const checkSpace = (min , max) => {
                    <select className={styleSelect}
                     onChange={(e) => setCompound(e.target.value) }
                    >
-                     <option value="">{t("all")}</option>
+                     <option value="none">{t("all")}</option>
                      {
                      
-                      removeDuplicateCompound?.map((compound , index) => (
+                      removeDuplicateCompound?.filter((compound) => compound.town_id == twon )?.map((compound , index) => (
                         <option key={index} value={compound.id}>{ langCode == "en" ? compound.en_name : compound.ar_name}</option>
                       ))
                       
@@ -176,7 +176,7 @@ const checkSpace = (min , max) => {
                  value={typeRealEstate}
                  onChange={(e) => setTypeReal(e.target.value)}
                  >
-                   <option value="">{t("all")}</option>
+                   <option value="none">{t("all")}</option>
                    {
                     removeDuplicateTypeReal?.map( (type , index) => (
                       <option key={index} value={type}>{

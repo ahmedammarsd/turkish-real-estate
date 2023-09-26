@@ -10,13 +10,13 @@ const ServiceDetails = ({mainService, image , views  , titleSub ,  descMain , de
         <img src={image} className="tw-w-full tw-h-full tw-object-cover" />
     </div>
     <div className={`tw-absolute tw-top-4 ${langCode === "en" ? "tw-left-4" : "tw-right-4"} tw-p-2 tw-px-2.5 tw-bg-main-blue tw-text-white tw-whitespace-nowrap tw-text-sm xs:tw-text-xs xs:tw-p-1.5 tw-rounded-sm tw-capitalize`}>
-    <span className="tw-p-2 tw-px-2.5 tw-bg-main-blue tw-text-white tw-whitespace-nowrap tw-text-sm xs:tw-text-xs xs:tw-p-1.5 tw-rounded-sm tw-capitalize">
+    <span className="tw-p-2 tw-px-2.5 tw-bg-main-blue tw-text-white tw-text-sm xs:tw-text-xs xs:tw-p-1.5 tw-rounded-sm tw-capitalize">
           {mainService}
         </span>
     </div>
     <div className="tw-flex tw-items-start tw-flex-col tw-gap-5 sm:tw-gap-3 tw-p-4 tw-py-5">
     <div className=" tw-flex tw-justify-between tw-w-full tw-items-center">
-        <span className="tw-p-2 tw-px-2.5 tw-bg-main-blue tw-text-white tw-whitespace-nowrap tw-text-sm xs:tw-text-xs xs:tw-p-1.5 tw-rounded-sm tw-capitalize">
+        <span className="tw-p-2 tw-px-2.5 tw-bg-main-blue tw-text-white tw-text-sm xs:tw-text-xs xs:tw-p-1.5 tw-rounded-sm tw-capitalize">
           {titleSub}
         </span>
         <div className="tw-flex tw-items-center tw-gap-2 tw-text-sm tw-text-gray-400 xs:tw-text-xs">
